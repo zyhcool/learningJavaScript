@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+        window.onload = function () {
+            let yield={};
+            console.log(yield);
+            if(!''){
+                console.log("hahaha");
+            }
+            // false,undefined,null,0,'' 的效果都跟false一样，在条件判断是为false;
+            console.log(''==undefined);
+            console.log(null==undefined);
+            console.log(''==null);
+            console.log(''==false);
+            console.log(null==false);
+            console.log(0===false);
+            console.log(0==false);
+            // 如上，有趣
+            if(!{}){
+                console.log("hahaha");
+            }
+            // {} 就没有这种效果了
+
+            let func = function(){
+                console.log("o");
+            }
+            if(typeof func == "function"){
+                console.log("yes");
+            }
+            console.log(typeof func);
+            // 从技术角度讲，函数是ECMAScript中的对象，但函数和对象是有区别的
+            let declaredVar;
+            console.log(declaredVar);
+            console.log(undeclaredVar);// Error
+            // 声明的变量自动获取undefined值，与未声明变量是有本质区别的
+            console.log(typeof declaredVar);
+            console.log(typeof undeclaredVar);
+            // 已声明但未初始化的变量数据类型为undefined，未声明的变量的数据类型也为undefined
+        }
+    </script>
+</body>
+</html>

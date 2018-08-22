@@ -9,32 +9,50 @@
 </head>
 
 <body>
+    <!-- <label for="question">Question</label><textarea name="question" id="question" cols="30" rows="10"></textarea> -->
+    <label for="">Question</label><textarea id="question" cols="30" rows="20"></textarea>
+    <a href="javascript:;" id="btn">录入</a>
+    <p>jksjkfsfisdfsfkjskfjso
+        ifjskjf\
+        /nksdjfkdsjfksdjfkdsjk
+    </p>
     <script>
         window.onload = function () {
-            var fruits = ['Apple', 'Banana'];
-            fruits.forEach(function (item, index, array) {
-                console.log(item, index, array);
-            })
-            // 对数组的每个元素遍历回调函数中，第一个参数是数组元素，第二个是数组的index，第三个是数组本身
-            // push()
-            // pop()
-            // shift()
-            // unshift()
-            // indexOf()
-            // splice()
-            // let new = myArr.splice(),实现数组的复制
+            // var fruits = ['Apple', 'Banana'];
+            // fruits.forEach(function (item, index, array) {
+            //     console.log(item, index, array);
+            // })
+            // // 对数组的每个元素遍历回调函数（mapFunc）中，第一个参数是数组元素，第二个是数组的index，第三个是数组本身
+            // // push()
+            // // pop()
+            // // shift()
+            // // unshift()
+            // // indexOf()
+            // // splice()
+            // // let new = myArr.splice(),实现数组的复制
 
-            // 1.JavaScript的属性名如果是以数字开头，则不能使用'.'来调用，而应该使用'[]'
-            fruits.length = 12;
-            console.log(fruits.length);
-            // fruits数组真实长度只有2，认为改变其长度是可能实现的
-            fruits.length = 1;
-            var fruits = ['Apple', 'Banana'];
-            console.log(fruits);
-            // 设定fruits数组的长度为1，比其真实长度短，则数组会删除其他元素
-            console.log(Array.of(fruits));
-            console.log(2 ** 7);
-            // '**'是乘幂符号
+            // // 1.JavaScript的属性名如果是以数字开头，则不能使用'.'来调用，而应该使用'[]'
+            // fruits.length = 12;
+            // console.log(fruits.length);
+            // // fruits数组真实长度只有2，认为改变其长度是可能实现的
+            // fruits.length = 1;
+            // var fruits = ['Apple', 'Banana'];
+            // console.log(fruits);
+            // // 设定fruits数组的长度为1，比其真实长度短，则数组会删除其他元素
+            // console.log(Array.of(fruits));
+            // console.log(2 ** 7);
+            // // '**'是乘幂符号
+
+
+
+            // var paragraph = 'The quick brown fox jumped over the lazy dog. It barked.';
+            // var regex = /[A-Z]/g;
+            // var found = paragraph.match(regex);
+            // console.log(found);
+
+            from(arrayLike,mapFunc,thisArg)
+            // 生成新的数组
+            // 可以实现字符串转数组（字符串每个字符元素成为数组元素）
 
 
         }
