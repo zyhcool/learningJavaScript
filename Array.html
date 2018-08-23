@@ -50,9 +50,86 @@
             // var found = paragraph.match(regex);
             // console.log(found);
 
-            from(arrayLike,mapFunc,thisArg)
+            // from(arrayLike,mapFunc,thisArg)
             // 生成新的数组
             // 可以实现字符串转数组（字符串每个字符元素成为数组元素）
+
+            
+            let obj = {
+                "_id": "5b7a2251f4a7e909e03a12ab",
+                "name": "test1",
+                "type": "章节练习",
+                "questionTypes": [
+                    {
+                        "name": "单项选择题",
+                        "questionIds": [
+                            "5b7a831251cbb62abc32c67f",
+                            "5b7d2a6ae913200828e70ed3",
+                            "5b7d2b9ce913200828e70ed4",
+                            "5b7d2cbbe913200828e70ed5",
+                            "5b7d2fe0e913200828e70ed6",
+                            "5b7e140e6f4a5915542a8247"
+                        ]
+                    },
+                    {
+                        "name": "多项选择题",
+                        "questionIds": [
+                            "5b7a8202ff5ce42bd0e66e88",
+                            "5b7a82a62715772aac76fedc",
+                            "5b7a831251cbb62abc32c67f",
+                            "5b7a868b395e672f48c2afae"
+                        ]
+                    },
+                ]
+            };
+            let id = "5b7d2fe0e913200828e70ed6";
+            obj.questionTypes.map((ele)=>{
+                if(ele.name === "单项选择题"){
+                    let index = ele.questionIds.indexOf(id);
+                    ele.questionIds.splice(index,1);
+                }
+            })
+            console.log(obj);
+            // 使用map()函数实现对对象内部的数组进行更新操作；
+
+            // concat()
+            // copyWithin()
+            // entries()
+            // every()
+            console.log([1,4,2,6,7,5,34,2,4].every((ele)=>
+                {return ele <=110;}))
+            // 所有元素满足条件才返回true值
+            // filter()
+            // find()
+            // 找到并返回第一个符合条件的数组元素
+            // findIndex()
+            // 找到并返回第一个符合条件的数组元素的索引
+
+            let arr1 = [,2,3,4];
+            console.log(arr1);
+            delete arr1[2];
+            console.log(arr1);
+            arr1.find((ele,index)=>{
+                console.log("Visited index: "+index+" with value: "+ele);
+            })
+            // find()会遍历空的数组元素，返回的值
+            // forEach()
+            // includes()
+            // indexOf()
+            // 返回第一个符合元素的索引
+            // join()
+            // 数组转字符串，默认“,”为分隔符
+            let str = ['ee','g','d','s','f','de','c','df','g','g.','d','sd'];
+            let arr2 = str.join("-");
+            console.log(arr2);
+            // keys()
+            // lastIndexOf()
+            console.log(str.lastIndexOf('g.')==str.indexOf('g'));
+            // map()
+            // map() vs forEach()
+            // map()返回新的数组，而forEach()是在原数组上操作
+            let newarr = str.map((ele,index,arr)=>arr);
+            console.log(newarr);
 
 
         }

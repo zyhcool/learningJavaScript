@@ -56,13 +56,13 @@
             // 浮点数0.2存在问题，当它与其他数值相加时，有时0.2并不是0.2
             // 基于IEEE754数值的浮点计算，其他语言也存在类似问题
             console.log(NaN == NaN);
-            console.log(0/0);
+            console.log(0 / 0);
             // 0除以0返回NaN
             console.log(Number(null));
             console.log(parseInt("0938haha"));
             // 字符串转数组需要字符串遵循一定的模式，数字部分必须放在字符串的前半部分；
             // JavaScript会解析到非数字部分停止
-            
+
         }
     </script>
 </body>
