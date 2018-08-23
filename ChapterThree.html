@@ -1,50 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
 
     <script>
         window.onload = function () {
-            let yield={};
+            let yield = {};
             console.log(yield);
-            if(!''){
+            if (!'') {
                 console.log("hahaha");
             }
             // false,undefined,null,0,'' 的效果都跟false一样，在条件判断是为false;
-            console.log(''==undefined);
-            console.log(null==undefined);
-            console.log(''==null);
-            console.log(''==false);
-            console.log(null==false);
-            console.log(0===false);
-            console.log(0==false);
+            console.log('' == undefined);
+            console.log(null == undefined);
+            console.log('' == null);
+            console.log('' == false);
+            console.log(null == false);
+            console.log(0 === false);
+            console.log(0 == false);
             // 如上，有趣
-            if(!{}){
+            if (!{}) {
                 console.log("hahaha");
             }
             // {} 就没有这种效果了
 
-            let func = function(){
+            let func = function () {
                 console.log("o");
             }
-            if(typeof func == "function"){
+            if (typeof func == "function") {
                 console.log("yes");
             }
             console.log(typeof func);
             // 从技术角度讲，函数是ECMAScript中的对象，但函数和对象是有区别的
             let declaredVar;
             console.log(declaredVar);
-            console.log(undeclaredVar);// Error
+            // console.log(undeclaredVar);// Error
             // 声明的变量自动获取undefined值，与未声明变量是有本质区别的
             console.log(typeof declaredVar);
             console.log(typeof undeclaredVar);
             // 已声明但未初始化的变量数据类型为undefined，未声明的变量的数据类型也为undefined
+
+            // 浮点数值占用的内存空间是整数值的两倍
+            // 1.0是浮点数值，1是整数值，因此JavaScript解析时会将实际为整数的浮点数值转化为整数值
+            let a = 3.4, b = 0.2;
+            if (a + b == 3.6) {
+                console.log("it's true");
+            }
+            // 浮点数0.2存在问题，当它与其他数值相加时，有时0.2并不是0.2
+            // 基于IEEE754数值的浮点计算，其他语言也存在类似问题
+            console.log(NaN == NaN);
+            console.log(0/0);
+            // 0除以0返回NaN
+            console.log(Number(null));
+            console.log(parseInt("0938haha"));
+            // 字符串转数组需要字符串遵循一定的模式，数字部分必须放在字符串的前半部分；
+            // JavaScript会解析到非数字部分停止
+            
         }
     </script>
 </body>
+
 </html>
