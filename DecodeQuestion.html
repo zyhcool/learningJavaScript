@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <label for="">Question</label><textarea id="question" cols="30" rows="20"></textarea>
+    <a href="javascript:;" id="btn">录入</a>
+    <script>
+        window.onload = function () {
+            let btn = document.getElementById("btn");
+            btn.onclick = function () {
+                let question = document.getElementById("question").value;
+                let num1 = question.indexOf("\uff0e");
+                if (num1 !== -1 && num1 < 4) {
+                    question = question.substring(num1 + 1);
+                }
+                let num2 = question.indexOf("\u002e");
+                if (num2 !== -1 && num2 < 4) {
+                    question = question.substring(num2 + 1);
+                }
+                console.log(question);
+                let type = "completion";
+
+                let ansIndex = question.indexOf("\u7b54");// 答案 => 7b54
+                let content = question.substring(0, ansIndex);
+                console.log(content);
+
+                let answerq = question.substring(ansIndex);
+                let anaIndex = answerq.indexOf(' ');
+                let answer = [];
+                let analysis = '';
+
+                if (type === "choice") {
+                    let choices = [];
+                    let choiceArr = ["A", "B", "C", "D"];
+                    let choiceIndexArr = choiceArr.map((ele, index) => {
+                        return content.lastIndexOf(ele);
+                    })
+                    console.log(choiceIndexArr);
+                    for (let i = 0; i < choiceArr.length; i++) {
+                        let choice = content.substring(choiceIndexArr[i] + 2, choiceIndexArr[i + 1])
+                        choices.push(choice);
+                    }
+                    console.log(choices);
+                    if (anaIndex !== -1) {
+                        answer.push(choiceArr.indexOf(answerq.substring(3, anaIndex)));
+                        analysis = answerq.substring(anaIndex)
+                    } else {
+                        answer.push(answerq.substring(3));
+                    }
+                }
+                if (type === "completion" || type === "explain") {
+                    answer.push(answerq.substring(3))
+                }
+                if (type === "judge") {
+                    let isTrue = answerq.includes("√");
+                    isTrue ? answer.push(true) : answer.push(false);
+                    if (anaIndex !== -1) {
+                        analysis = answerq.substring(anaIndex)
+                    }
+                }
+
+                console.log(answer);
+                console.log(analysis);
+                for(ans of answer){
+                    console.log(ans);
+                    console.log("--------------------");
+                }
+
+
+            }
+
+
+            // console.log("答案".charCodeAt().toString(16));
+            // console.log("A\uff0e");
+            // console.log("\u002e");
+            // console.log("&#65294");
+            console.log("√".charCodeAt().toString(16));
+            let aa = "sjks1dkf\njfsdj1dkfjksdjf"
+            console.log(aa);
+            let first = aa.indexOf(1);
+            let last = aa.lastIndexOf(1);
+            let en = aa.substring(first,last);
+            console.log(en);
+
+
+
+
+        }
+    </script>
+</body>
+
+</html>
