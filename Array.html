@@ -12,9 +12,7 @@
     <!-- <label for="question">Question</label><textarea name="question" id="question" cols="30" rows="10"></textarea> -->
     <label for="">Question</label><textarea id="question" cols="30" rows="20"></textarea>
     <a href="javascript:;" id="btn">录入</a>
-    <p>jksjkfsfisdfsfkjskfjso
-        ifjskjf\
-        /nksdjfkdsjfksdjfkdsjk
+    <p>jksjkfsfisdfsfkjskfjso ifjskjf\ /nksdjfkdsjfksdjfkdsjk
     </p>
     <script>
         window.onload = function () {
@@ -54,7 +52,7 @@
             // 生成新的数组
             // 可以实现字符串转数组（字符串每个字符元素成为数组元素）
 
-            
+
             let obj = {
                 "_id": "5b7a2251f4a7e909e03a12ab",
                 "name": "test1",
@@ -83,10 +81,10 @@
                 ]
             };
             let id = "5b7d2fe0e913200828e70ed6";
-            obj.questionTypes.map((ele)=>{
-                if(ele.name === "单项选择题"){
+            obj.questionTypes.map((ele) => {
+                if (ele.name === "单项选择题") {
                     let index = ele.questionIds.indexOf(id);
-                    ele.questionIds.splice(index,1);
+                    ele.questionIds.splice(index, 1);
                 }
             })
             console.log(obj);
@@ -96,8 +94,7 @@
             // copyWithin()
             // entries()
             // every()
-            console.log([1,4,2,6,7,5,34,2,4].every((ele)=>
-                {return ele <=110;}))
+            console.log([1, 4, 2, 6, 7, 5, 34, 2, 4].every((ele) => { return ele <= 110; }))
             // 所有元素满足条件才返回true值
             // filter()
             // find()
@@ -105,12 +102,12 @@
             // findIndex()
             // 找到并返回第一个符合条件的数组元素的索引
 
-            let arr1 = [,2,3,4];
+            let arr1 = [, 2, 3, 4];
             console.log(arr1);
             delete arr1[2];
             console.log(arr1);
-            arr1.find((ele,index)=>{
-                console.log("Visited index: "+index+" with value: "+ele);
+            arr1.find((ele, index) => {
+                console.log("Visited index: " + index + " with value: " + ele);
             })
             // find()会遍历空的数组元素，返回的值
             // forEach()
@@ -119,17 +116,77 @@
             // 返回第一个符合元素的索引
             // join()
             // 数组转字符串，默认“,”为分隔符
-            let str = ['ee','g','d','s','f','de','c','df','g','g.','d','sd'];
+            let str = ['ee', 'g', 'd', 's', 'f', 'de', 'c', 'df', 'g', 'g.', 'd', 'sd'];
             let arr2 = str.join("-");
             console.log(arr2);
             // keys()
             // lastIndexOf()
-            console.log(str.lastIndexOf('g.')==str.indexOf('g'));
+            console.log(str.lastIndexOf('g.') == str.indexOf('g'));
             // map()
             // map() vs forEach()
             // map()返回新的数组，而forEach()是在原数组上操作
-            let newarr = str.map((ele,index,arr)=>arr);
+            let newarr = str.map((ele, index, arr) => arr);
             console.log(newarr);
+
+            // reduce()
+            // 实现对数组元素的累加或累乘等骚操作
+            // 与map等遍历函数一样，对数组的每个元素执行callFunction；但是这个callFunction里面多了一个accumulator，可以接受callFunction返回的值并保存至下次使用（这是这个方法的关键点）
+            // 如果initialValue存在，则accumulator的初始值为initialValue，否则accumulator初始值为数组第一个元素；
+            let someArr = ['d', 'j', 't', 'f', 'd', 'g', 'h', 'g', 'f', 'f', 'd', 'r', 'y', 'j', 'j', 'f', 'd', 'f', 'f', 'f', 'h', 'h', 'f', 'f', 'd', 'b', 'x', 's', 'e', 'r'];
+            let result = someArr.reduce((chars, char) => {
+                if (char in chars) {
+                    chars[char]++;
+                } else {
+                    chars[char] = 1;
+                }
+                return chars;
+            }, {})
+            console.log(result);
+
+            // friends - an array of objects 
+            // where object field "books" - list of favorite books 
+            var friends = [{
+                name: 'Anna',
+                books: ['Bible', 'Harry Potter'],
+                age: 21
+            }, {
+                name: 'Bob',
+                books: ['War and peace', 'Romeo and Juliet'],
+                age: 26
+            }, {
+                name: 'Alice',
+                books: ['The Lord of the Rings', 'The Shining'],
+                age: 18
+            }];
+
+            // allbooks - list which will contain all friends' books +  
+            // additional list contained in initialValue
+            var allbooks = friends.reduce(function (accumulator, currentValue) {
+                return accumulator.concat(currentValue.books);
+            }, ['Alphabet']);
+
+            console.log(allbooks);
+
+            // allbooks = [
+            //   'Alphabet', 'Bible', 'Harry Potter', 'War and peace', 
+            //   'Romeo and Juliet', 'The Lord of the Rings',
+            //   'The Shining'
+            // ]
+
+
+
+            // reduceRight()
+            // reverse()
+            // shift()
+            // slice()
+
+            let char = " djdjdkk  ";
+            console.log(char.length);
+            let charTrimed = char.trim();
+            console.log(charTrimed.length);
+            JSON.s
+
+
 
         }
     </script>
