@@ -75,9 +75,42 @@
             // toString()
             // valueOf()
 
+            // 位操作符
 
-            
-            
+            // 逻辑与操作符是短路操作符，即第一个操作数能决定结果，则不会再考察后面的操作数
+            // 逻辑或操作符也是短路操作符，即第一个操作数为true，则不会再考察后面的操作数
+
+            console.log(true == 1);
+            console.log('1' == 1);
+
+            // NAN不等于NAN
+            // ==与===的区别在于：==会转换数据类型再进行比较，===直接比较而不转换数据类型
+
+            // for-in语句
+            // 遍历对象的属性
+
+            // label语句
+            // 标记循环体的位置
+
+            // break 退出循环
+            // continue 退出该次循环，继续后续循环
+
+            // with语句，不建议使用
+
+            // 函数体内有arguments对象，可以通过此对象俩获取函数接受到的参数，ECMAScript的函数参数只提供便利，但不是必须的
+            // ECMAScript没有函数签名的概念，其参数是以数组的形式传递的，故其不能重载
+
+            function toadd(num1, num2) {
+                // arguments[1] = 10;
+                num2= 10;
+                console.log(arguments[1] + num2);
+            }
+            toadd(1,2);
+
+            arguments的值与对应参数的值是同步更新的
+
+
+
 
         }
     </script>

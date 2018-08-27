@@ -11,11 +11,14 @@
 <body>
     <label for="">Question</label><textarea id="question" cols="30" rows="20"></textarea>
     <a href="javascript:;" id="btn">录入</a>
+    <div id="disp"></div>
     <script>
         window.onload = function () {
             let btn = document.getElementById("btn");
+            let disp = document.getElementById("disp");
             btn.onclick = function () {
                 let question = document.getElementById("question").value;
+                disp.innerHTML=question;
                 let num1 = question.indexOf("\uff0e");
                 if (num1 !== -1 && num1 < 4) {
                     question = question.substring(num1 + 1);
@@ -25,7 +28,15 @@
                     question = question.substring(num2 + 1);
                 }
                 console.log(question);
-                let type = "completion";
+                let questionStr = JSON.stringify(question);
+                console.log(questionStr);
+                questionStr.replace(/A/gi,'-hah-');
+                console.log(questionStr);
+
+
+
+
+                let type = "choice";
 
                 let ansIndex = question.indexOf("\u7b54");// 答案 => 7b54
                 let content = question.substring(0, ansIndex);
@@ -66,12 +77,6 @@
                     }
                 }
 
-                console.log(answer);
-                console.log(analysis);
-                for(ans of answer){
-                    console.log(ans);
-                    console.log("--------------------");
-                }
 
 
             }
@@ -86,7 +91,7 @@
             console.log(aa);
             let first = aa.indexOf(1);
             let last = aa.lastIndexOf(1);
-            let en = aa.substring(first,last);
+            let en = aa.substring(first, last);
             console.log(en);
 
 
