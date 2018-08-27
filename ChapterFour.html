@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        window.onload = function () {
+            // 基本类型和引用类型
+
+            // 变量的复制：
+            // 基本类型的复制实际上是开辟另外的内存空间给新的变量；
+            // 引用类型的复制也开辟了新的内存空间，但是两个变量实际上是指向堆内存中的同一个对象
+
+            // ECMASdcript的函数参数都是按值传递的
+            let obj1 = {
+                name: ""
+            }
+            let obj2 = obj1;
+            obj1.name = "zyh";
+            console.log(obj2);
+
+            function add(num){
+                num += 10;
+            }
+            let num = 1;
+            add(num);
+            console.log(num);
+            function cha(obj){
+                obj.name = "hah";
+                return obj;
+            }
+            let obj = new Object();
+            obj = {
+                name: 'kk'
+            }
+            obj = cha(obj);
+            console.log(obj.name);
+
+            // 使用typeof检查基本类型，使用instanceof检查引用类型
+            // 规定：所有引用类型的值都是Object的实例
+
+            // 执行环境 execution context =====> 变量对象 variable object
+            // 全局执行环境 如 window对象
+            // 局部执行环境 一般为函数 
+
+            // 作用域链 scope chain
+            // 任何环境都不能通过向下搜索作用域链而访问下级环境
+            if(true){
+                var color = "blue";
+            }
+            console.log(color);
+            // if语句不形成块级作用域，所以color变量属于全局环境
+
+            // JavaScript的自动垃圾回收机制
+            // 1.标记清除
+            // 2.引用计数（不常用）
+            // 垃圾回收机制会周期性触发
+            // 离开作用域的值被标记为可回收，并在垃圾回收机制执行时被删除
+
+
+        }
+    </script>
+</body>
+
+</html>
