@@ -16,87 +16,139 @@
         window.onload = function () {
             let btn = document.getElementById("btn");
             let disp = document.getElementById("disp");
-            btn.onclick = function () {
-                let question = document.getElementById("question").value;
-                disp.innerHTML=question;
-                let num1 = question.indexOf("\uff0e");
-                if (num1 !== -1 && num1 < 4) {
-                    question = question.substring(num1 + 1);
-                }
-                let num2 = question.indexOf("\u002e");
-                if (num2 !== -1 && num2 < 4) {
-                    question = question.substring(num2 + 1);
-                }
-                console.log(question);
-                let questionStr = JSON.stringify(question);
-                console.log(questionStr);
-                questionStr.replace(/A/gi,'-hah-');
-                console.log(questionStr);
+            // btn.onclick = function () {
+            //     let question = document.getElementById("question").value;
+            //     disp.innerHTML = question;
+            //     let num1 = question.indexOf("\uff0e");
+            //     if (num1 !== -1 && num1 < 4) {
+            //         question = question.substring(num1 + 1);
+            //     }
+            //     let num2 = question.indexOf("\u002e");
+            //     if (num2 !== -1 && num2 < 4) {
+            //         question = question.substring(num2 + 1);
+            //     }
+            //     console.log(question);
+            //     let questionStr = JSON.stringify(question);
+            //     console.log(questionStr);
+            //     let regex = /\n/gi;
+            //     let newhah = question.replace(regex, '');
+            //     console.log(newhah);
 
 
 
 
-                let type = "choice";
 
-                let ansIndex = question.indexOf("\u7b54");// 答案 => 7b54
-                let content = question.substring(0, ansIndex);
-                console.log(content);
+            //     let type = "choice";
 
-                let answerq = question.substring(ansIndex);
-                let anaIndex = answerq.indexOf(' ');
-                let answer = [];
-                let analysis = '';
+            //     let ansIndex = question.indexOf("\u7b54");// 答案 => 7b54
+            //     let content = question.substring(0, ansIndex);
+            //     console.log(content);
 
-                if (type === "choice") {
-                    let choices = [];
-                    let choiceArr = ["A", "B", "C", "D"];
-                    let choiceIndexArr = choiceArr.map((ele, index) => {
-                        return content.lastIndexOf(ele);
-                    })
-                    console.log(choiceIndexArr);
-                    for (let i = 0; i < choiceArr.length; i++) {
-                        let choice = content.substring(choiceIndexArr[i] + 2, choiceIndexArr[i + 1])
-                        choices.push(choice);
-                    }
-                    console.log(choices);
-                    if (anaIndex !== -1) {
-                        answer.push(choiceArr.indexOf(answerq.substring(3, anaIndex)));
-                        analysis = answerq.substring(anaIndex)
-                    } else {
-                        answer.push(answerq.substring(3));
-                    }
-                }
-                if (type === "completion" || type === "explain") {
-                    answer.push(answerq.substring(3))
-                }
-                if (type === "judge") {
-                    let isTrue = answerq.includes("√");
-                    isTrue ? answer.push(true) : answer.push(false);
-                    if (anaIndex !== -1) {
-                        analysis = answerq.substring(anaIndex)
-                    }
-                }
+            //     let answerq = question.substring(ansIndex);
+            //     let anaIndex = answerq.indexOf(' ');
+            //     let answer = [];
+            //     let analysis = '';
 
-
-
-            }
+            //     if (type === "choice") {
+            //         let choices = [];
+            //         let choiceArr = ["A", "B", "C", "D"];
+            //         let choiceIndexArr = choiceArr.map((ele, index) => {
+            //             return content.lastIndexOf(ele);
+            //         })
+            //         console.log(choiceIndexArr);
+            //         for (let i = 0; i < choiceArr.length; i++) {
+            //             let choice = content.substring(choiceIndexArr[i] + 2, choiceIndexArr[i + 1])
+            //             choices.push(choice);
+            //         }
+            //         console.log(choices);
+            //         if (anaIndex !== -1) {
+            //             answer.push(choiceArr.indexOf(answerq.substring(3, anaIndex)));
+            //             analysis = answerq.substring(anaIndex)
+            //         } else {
+            //             answer.push(answerq.substring(3));
+            //         }
+            //     }
+            //     if (type === "completion" || type === "explain") {
+            //         answer.push(answerq.substring(3))
+            //     }
+            //     if (type === "judge") {
+            //         let isTrue = answerq.includes("√");
+            //         isTrue ? answer.push(true) : answer.push(false);
+            //         if (anaIndex !== -1) {
+            //             analysis = answerq.substring(anaIndex)
+            //         }
+            //     }
+            // }
 
 
             // console.log("答案".charCodeAt().toString(16));
             // console.log("A\uff0e");
             // console.log("\u002e");
             // console.log("&#65294");
-            console.log("√".charCodeAt().toString(16));
-            let aa = "sjks1dkf\njfsdj1dkfjksdjf"
-            console.log(aa);
-            let first = aa.indexOf(1);
-            let last = aa.lastIndexOf(1);
-            let en = aa.substring(first, last);
-            console.log(en);
+            // console.log("√".charCodeAt().toString(16));
+            // let aa = "sjks1dkf\njfsdj1dkfjksdjf"
+            // console.log(aa);
+            // let first = aa.indexOf(1);
+            // let last = aa.lastIndexOf(1);
+            // let en = aa.substring(first, last);
+            // console.log(en);
 
 
+            // 分题
+            btn.onclick = function () {
+                let questions = document.getElementById("question").value;
+                let quesArr = questions.split(/\n\n/g);
+                console.log(quesArr);
+                // decodeQuestions(questions);
+            }
 
+            function decodeQuestions(data) {
+                let type = "";
+                let question = data.replace(/\uff0e/g, '\u002e')
+                    .replace(/\uff1a/g, '\u003a')
+                    .replace(/\d*\./, "");// 中文间隔符==>英文间隔符,中文冒号==>英文冒号,去掉开头标题
 
+                let content = question.split(/答案:|解析:/)[0].trim();
+                let answerPart = question.split(/答案:|解析:/)[1].trim();
+                console.log("content: " + content);
+                console.log("answerPart: " + answerPart);
+                let answer, analysis;
+
+                if (type === "choice") {
+                    let indexOfA = content.lastIndexOf('A.');
+                    let choices = content.substring(indexOfA).split(/\s+/);
+                    choices = choices.map((ele) => {
+                        return ele.replace(/[A-Z]\./, "");
+                    })
+                    let result = findAnalysis(answerPart);
+                    answer = result[0];
+                    analysis = result[1];
+                    console.log("choices: " + choices);
+                }
+                if (type === "judge") {
+                    let result = findAnalysis(answerPart);
+                    answer = result[0];
+                    analysis = result[1];
+                    answer.includes("√") ? answer = true : answer = false;
+                }
+                if (type === "brif") {
+                    let result = findAnalysis(answerPart);
+                    answer = result[0];
+                    analysis = result[1];
+                }
+                console.log("answer: " + answer)
+                console.log("analysis: " + analysis)
+            }
+
+            function findAnalysis(answerPart) {
+                if (/解析:/g.test(answerPart) || /\n解析:/g.test(answerPart)) {
+                    return answerPart.split(/解析:/);
+                } else if (/\s+/.test(answerPart)) {
+                    return answerPart.split(/\s+/);
+                } else {
+                    return [answerPart, ''];
+                }
+            }
         }
     </script>
 </body>

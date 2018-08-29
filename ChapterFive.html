@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        window.onload = function () {
+            let str = "cat hat bat nat [bc]at";
+            console.log(str.replace(/\[bc\]at/gi,"II"));
+            let regex = new RegExp("[bc]at","gi");
+            console.log(str.replace(regex,"II"));
+            console.log(regex.multiline);
+            // 传入正则表达式构造函数的字符串中的特殊字符（已转义）需要进行二次转义，使用"\\"代替"\"；
+            let match = regex.exec(str);
+            console.log(match.index);
+            match = regex.exec(str);
+
+            console.log(match.index);
+
+            // 函数是对象，因此函数名也是指向函数对象的指针
+            // 函数声明可以变量提升，而函数表达式不能
+            function sum(num){
+                if(num<1){
+                    return 0;
+                }else{
+                    return num+arguments.callee(num-1);
+                }
+            }
+            console.log(sum(10));
+            // 严格模式下，arguments.callee报错
+
+            // 函数的prototype属性不可枚举，即无法用 for-in 访问
+
+            // 函数的call和apply方法，主要用于扩充函数的作用域
+            // bind方法 将函数的this对象绑定到某个作用域内
+
+        }
+    </script>
+</body>
+
+</html>
