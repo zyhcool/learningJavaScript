@@ -16,6 +16,7 @@
         window.onload = function () {
             let btn = document.getElementById("btn");
             let disp = document.getElementById("disp");
+            // 版本一
             // btn.onclick = function () {
             //     let question = document.getElementById("question").value;
             //     disp.innerHTML = question;
@@ -33,10 +34,6 @@
             //     let regex = /\n/gi;
             //     let newhah = question.replace(regex, '');
             //     console.log(newhah);
-
-
-
-
 
             //     let type = "choice";
 
@@ -103,7 +100,7 @@
             }
 
             function decodeQuestions(data) {
-                let type = "";
+                let type = "ha";
                 let question = data.replace(/\uff0e/g, '\u002e')
                     .replace(/\uff1a/g, '\u003a')
                     .replace(/\d*\./, "");// 中文间隔符==>英文间隔符,中文冒号==>英文冒号,去掉开头标题

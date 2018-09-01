@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        window.onload = function () {
+            let person = {
+                _age: 12
+            }
+            Object.defineProperty(person,"age",{
+                // get: function(){
+                //     return this._age+1;
+                // },
+                // set: function(value){
+                //     this._age = value;
+                // }
+            })
+            console.log(person.name);
+            console.log(person.age);
+            console.log(person._age);
+            person.age = 23;
+            console.log(person.age);
+            
+            // let arr = 21;
+            // let arr2 = [...arr];
+            // console.log(arr2);
+            
+
+            function Person(name,age){
+                this.name = name;
+                this.age = age;
+            }
+            let someone = new Person();
+            console.log(someone instanceof Person);
+
+            class Country{
+                address;
+                code
+            }
+            let somewhere = new Country();
+            console.log(somewhere);
+        }
+    </script>
+</body>
+
+</html>
