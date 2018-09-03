@@ -9,44 +9,97 @@
 </head>
 
 <body>
+    <div id="ha">Enen</div>
 
     <script>
         window.onload = function () {
-            let person = {
-                _age: 12
-            }
-            Object.defineProperty(person,"age",{
-                // get: function(){
-                //     return this._age+1;
-                // },
-                // set: function(value){
-                //     this._age = value;
-                // }
-            })
-            console.log(person.name);
-            console.log(person.age);
-            console.log(person._age);
-            person.age = 23;
-            console.log(person.age);
-            
-            // let arr = 21;
-            // let arr2 = [...arr];
-            // console.log(arr2);
-            
+            // let person = {
+            //     _age: 12
+            // }
+            // Object.defineProperty(person,"age",{
+            //     // get: function(){
+            //     //     return this._age+1;
+            //     // },
+            //     // set: function(value){
+            //     //     this._age = value;
+            //     // }
+            // })
+            // console.log(person.name);
+            // console.log(person.age);
+            // console.log(person._age);
+            // person.age = 23;
+            // console.log(person.age);
 
-            function Person(name,age){
+            // // let arr = 21;
+            // // let arr2 = [...arr];
+            // // console.log(arr2);
+
+
+            // function Person(name,age){
+            //     this.name = name;
+            //     this.age = age;
+            // }
+            // let someone = new Person();
+            // console.log(someone instanceof Person);
+
+            let ha = document.getElementById("ha");
+            let he = 'hehe'
+            ha.oncontextmenu = function (e) {
+                e.preventDefault();
+                // console.log(he);
+                alert("haah");
+            }
+
+            let Animal = function (name) {
                 this.name = name;
-                this.age = age;
+                // this.sayHello = function(){
+                //     console.log("Hello ! I'm "+this.name);
+                // }
             }
-            let someone = new Person();
-            console.log(someone instanceof Person);
+            Animal.prototype.sayHello = function () {
+                console.log("Hello ! I'm " + this.name);
+            }
+            Animal.prototype.age = 9;
+            let dog = new Animal('haha');
+            dog.sayHello();
+            let cat = new Animal('hehe');
+            cat.sayHello();
+            console.log(dog.sayHello === cat.sayHello);
+            console.log(Animal.prototype);
+            console.log(dog);
+            console.log(dog.constructor === Animal);
 
-            class Country{
-                address;
-                code
+            let arr = [2, 5];
+            let a = [1, 2, 3, 4];
+            arr.push(...a);
+            console.log(arr);
+
+            class Thing{
+                constructor(props){
+                    this.name = props.name;
+                }
+                sayName(){
+                    console.log("My name is "+this.name);
+                }
             }
-            let somewhere = new Country();
-            console.log(somewhere);
+            let cup = new Thing({name: "StarBuck"});
+            cup.sayName();
+            console.log(cup);
+
+            class SubThing extends Thing{
+                constructor(props){
+                    super(props);
+                    this.number = props.number;
+                }
+                count(){
+                    console.log("I have "+this.number+" "+this.name+"s");
+                }
+            }
+            let bottle = new SubThing({name:"KOI",number:12});
+            bottle.count();
+            console.log(bottle);
+
+
         }
     </script>
 </body>
