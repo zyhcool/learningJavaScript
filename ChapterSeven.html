@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        window.onload = function () {
+            // arguments.callee()是一个指向正在执行的函数的指针
+
+            // 闭包
+            // function createFunc(){
+            //     var funcs = new Array();
+            //     for(var i=0;i<10;i++){
+            //         funcs[i]=function(){
+            //             console.log(i);
+            //         }
+            //     }
+            //     return funcs;
+            // }
+            // var funcs = createFunc();
+            // console.log(funcs);
+            // var func3 = funcs[2];
+            // func3();
+
+            function createFunc(){
+                var funcs = new Array();
+                for(let i=0;i<10;i++){
+                    funcs[i]=function(){
+                        console.log(i);
+                    }
+                }
+                return funcs;
+            }
+            var funcs = createFunc();
+            console.log(funcs);
+            var func3 = funcs[2];
+            func3();
+            
+
+
+        }
+    </script>
+</body>
+
+</html>
