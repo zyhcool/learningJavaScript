@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    div{
+        height: 100%;
+        width: 100%;
+        background-color: aqua;
+        margin-bottom: 20px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="haha">dd</div>
+    <div id="gotoSeven">gotoSeven</div>
+    <div id="noReturn">gotoSeven noReturn</div>
+    <frameset>
+        <frame>
+    </frameset>
+
+    <script>
+        window.onload = function () {
+            // window.open()
+            let haha = document.getElementById("haha");
+            haha.onclick = ()=>{window.resizeTo(120,120)};
+            
+            // alert,confirm,prompt
+
+            console.log("location.hash: "+location.hash);
+            console.log("location.host: "+location.host);
+            console.log("location.hostname: "+location.hostname);
+            console.log("location.href: "+location.href);
+            console.log("location.pathname: "+location.pathname);
+            console.log("location.port: "+location.port);
+            console.log("location.protocol: "+location.protocol);
+            console.log("location.search: "+location.search);
+
+            let gotoSeven = document.getElementById("gotoSeven");
+            gotoSeven.onclick = function(){
+                location.href = "file:///C:/MyProject/learningJavaScript/ChapterSeven.html";
+            }
+            noReturn.onclick = function(){
+                location.replace("file:///C:/MyProject/learningJavaScript/ChapterSeven.html");
+            }
+
+            
+
+        }
+    </script>
+</body>
+
+</html>
