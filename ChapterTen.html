@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    div{
+        height: 100%;
+        width: 100%;
+        background-color: aqua;
+        margin-bottom: 20px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="haha">dd</div>
+
+    <script>
+        window.onload = function () {
+            let haha = document.getElementById("haha");
+            console.log(haha.nodeType == Node.ELEMENT_NODE);
+            console.log(haha.nodeName);
+            console.log(haha.nodeValue);
+            console.log(haha.innerText);
+            console.log(haha.id);
+            console.log(haha.ownerDocument);
+            console.log(haha.childNodes[0]);
+            
+            let url = document.URL;
+            console.log(url);
+            document.title = "hahah";
+
+            console.log(document.implementation.hasFeature("XML"));
+            console.log(document.implementation.hasFeature("LS-Async"));
+
+            document.write("enhahenene");
+
+        }
+    </script>
+</body>
+
+</html>
