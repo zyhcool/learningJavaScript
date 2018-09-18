@@ -20,18 +20,13 @@ let transporter = nodemailer.createTransport({
     }
 });
 
+let transporter = nodemailer.createTransport("smtps://1806904196%40qq.com:jtqbijuhnwqfbdae@smtp.qq.com");
+
 let mailOptions={
     from:"Cool<1806904196@qq.com>",
     to:"18328097486@163.com",
     subject:"Hello",
     html:"<p>Hello World!</p>",
-    attachments:[
-        {
-            filename:"my.html",
-            content:"test attachments",
-            path:"Index.html"
-        }
-    ]
 };
 
 transporter.sendMail(mailOptions,(error,info)=>{

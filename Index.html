@@ -7,16 +7,67 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script>
-        window.onload = function () {
-            
-        }
+        // window.onload = function () {
+        //     if(!window.localStorage){
+        //         return;
+        //     }
+        //     let storage = window.localStorage;
+        //     if(!storage.getItem("count")){
+        //         storage.setItem("count",0);
+        //     }
+        //     storage.setItem("count",parseInt(storage.getItem("count"))+1);
+        //     console.log(storage.count);
+        //     for(let key in storage){
+        //         console.log(key);
+        //     }
+        //     storage.haha = "haha";
+        //     console.log(storage.key)
+        // }
+
+
+
+        // let myPromise = new Promise((resolve,reject)=>{
+        //     function sum(a,b){
+        //         return a+b;
+        //     }
+        //     function multi(a,b){
+        //         return a*b;
+        //     }
+        //     // resolve(sum);
+        //     reject(multi);
+        // });
+        // let secPromise = myPromise.then((func)=>{
+        //     console.log(func(2,3));
+        // },(errFunc)=>{
+        //     console.log(errFunc(2,3));
+        // })
+        // myPromise.catch((c)=>{
+        //     console.log(c);
+        // })
+        // console.log(myPromise);
+        // console.log(secPromise);
+
+        // let promise = 99;
+        // promise.then((value) => {
+        //     console.log(value);
+        // })
+
+        var promise1 = Promise.resolve(3);
+        var promise2 = 42;
+        var promise3 = new Promise(function (resolve, reject) {
+            setTimeout(resolve, 100, 'foo');
+        });
+
+        Promise.all([promise1, promise2, promise3]).then(function (values) {
+            console.log(values);
+        });
     </script>
 </head>
 
 <body>
     <a href="mailto:18328097486@163.com;">send</a>
 
-    <script src="script.js"></script>
+    <!-- <script src="script.js"></script> -->
 </body>
 
 </html>
