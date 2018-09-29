@@ -16,142 +16,31 @@
         window.onload = function () {
             let btn = document.getElementById("btn");
             let disp = document.getElementById("disp");
-            // 版本一
-            // btn.onclick = function () {
-            //     let question = document.getElementById("question").value;
-            //     disp.innerHTML = question;
-            //     let num1 = question.indexOf("\uff0e");
-            //     if (num1 !== -1 && num1 < 4) {
-            //         question = question.substring(num1 + 1);
-            //     }
-            //     let num2 = question.indexOf("\u002e");
-            //     if (num2 !== -1 && num2 < 4) {
-            //         question = question.substring(num2 + 1);
-            //     }
-            //     console.log(question);
-            //     let questionStr = JSON.stringify(question);
-            //     console.log(questionStr);
-            //     let regex = /\n/gi;
-            //     let newhah = question.replace(regex, '');
-            //     console.log(newhah);
-
-            //     let type = "choice";
-
-            //     let ansIndex = question.indexOf("\u7b54");// 答案 => 7b54
-            //     let content = question.substring(0, ansIndex);
-            //     console.log(content);
-
-            //     let answerq = question.substring(ansIndex);
-            //     let anaIndex = answerq.indexOf(' ');
-            //     let answer = [];
-            //     let analysis = '';
-
-            //     if (type === "choice") {
-            //         let choices = [];
-            //         let choiceArr = ["A", "B", "C", "D"];
-            //         let choiceIndexArr = choiceArr.map((ele, index) => {
-            //             return content.lastIndexOf(ele);
-            //         })
-            //         console.log(choiceIndexArr);
-            //         for (let i = 0; i < choiceArr.length; i++) {
-            //             let choice = content.substring(choiceIndexArr[i] + 2, choiceIndexArr[i + 1])
-            //             choices.push(choice);
-            //         }
-            //         console.log(choices);
-            //         if (anaIndex !== -1) {
-            //             answer.push(choiceArr.indexOf(answerq.substring(3, anaIndex)));
-            //             analysis = answerq.substring(anaIndex)
-            //         } else {
-            //             answer.push(answerq.substring(3));
-            //         }
-            //     }
-            //     if (type === "completion" || type === "explain") {
-            //         answer.push(answerq.substring(3))
-            //     }
-            //     if (type === "judge") {
-            //         let isTrue = answerq.includes("√");
-            //         isTrue ? answer.push(true) : answer.push(false);
-            //         if (anaIndex !== -1) {
-            //             analysis = answerq.substring(anaIndex)
-            //         }
-            //     }
-            // }
-
-
-            // console.log("答案".charCodeAt().toString(16));
-            // console.log("A\uff0e");
-            // console.log("\u002e");
-            // console.log("&#65294");
-            // console.log("√".charCodeAt().toString(16));
-            // let aa = "sjks1dkf\njfsdj1dkfjksdjf"
-            // console.log(aa);
-            // let first = aa.indexOf(1);
-            // let last = aa.lastIndexOf(1);
-            // let en = aa.substring(first, last);
-            // console.log(en);
-
-
             // 分题
             btn.onclick = function () {
-                let questions = document.getElementById("question").value;
-                let quesArr = questions.split(/\n\n/g);
-                console.log(quesArr);
+                let questions = [
+                    "【答案】C。",
+                    "【答案】A。学赞讲师解析：《教师法》第十条规定：国家实行教师资格制度。",
+                    "B",
+                    "【答案】C。【解析】格塞尔通过“双生子爬梯实验”得出结论，认为个体的生理和心理发展.都是按基因规定的顺序有规则、有秩序地进行的。支配儿童心理发展的是成熟和学习。",
+                    "正确答案:B.幼儿的社会交往能力",
+                    "C【学赞讲师解析】幼儿园环境包括物质环境和精神环境，幼儿园的环境创设主要是指合格的物质条件和良好的精神环境。",
+                    "8.【参考答案】B.擤鼻涕时应让幼儿上身稍微前倾，先用手指压住幼儿的一侧鼻翼，让幼儿稍稍用力向外擤出对侧鼻翼的鼻涕；在用同样的方法擤出另一侧鼻腔内的分泌物，故B正确。",
+                    "4.【学赞教育解析】A教师变废为宝的过程体现了环境创设的能力",
+                    "8.【学赞教育解析】A.幼儿园的做法正确，因为给教学造成了损失",
+                    "【答案】D。解析：在本段材料中，作者的观点隐藏在“但”后面，即“(佛教)到底不能离开人间，所以它也并不能完全免俗”。虽然选项A、D都提到了“免俗”，但短文是针对“爱财”的，故选项A也应排除。所以本题的正确答案为D。"
+                ]
                 decodeQuestions(questions);
             }
 
             function decodeQuestions(data) {
-                let type = "completion";
-                let question = data.replace(/\uff0e/g, '\u002e')
-                    .replace(/\uff1a/g, '\u003a')
-                    .replace(/\d*\./, "");// 中文间隔符==>英文间隔符,中文冒号==>英文冒号,去掉开头标题
-
-                let content = question.split(/答案:|解析:/)[0].trim();
-                let answerPart = question.split(/答案:|解析:/)[1].trim();
-                console.log("content: " + content);
-                console.log("answerPart: " + answerPart);
-                let answer, analysis;
-
-                if (type === "choice") {
-                    let indexOfA = content.lastIndexOf('A.');
-                    let choices = content.substring(indexOfA).split(/\s+/);
-                    choices = choices.map((ele) => {
-                        return ele.replace(/[A-Z]\./, "");
-                    })
-                    let result = findAnalysis(answerPart);
-                    answer = result[0];
-                    analysis = result[1];
-                    console.log("choices: " + choices);
-                }
-                if (type === "completion") {
-                    let result = findAnalysis(answerPart);
-                    answer = result[0];
-                    analysis = result[1];
-                    content = content.replace(/_+/g,"hahah");
-                    console.log(content);
-                }
-                if (type === "judge") {
-                    let result = findAnalysis(answerPart);
-                    answer = result[0];
-                    analysis = result[1];
-                    answer.includes("√") ? answer = true : answer = false;
-                }
-                if (type === "brif") {
-                    let result = findAnalysis(answerPart);
-                    answer = result[0];
-                    analysis = result[1];
-                }
-                console.log("answer: " + answer)
-                console.log("analysis: " + analysis)
-            }
-
-            function findAnalysis(answerPart) {
-                if (/解析:/g.test(answerPart) || /\n解析:/g.test(answerPart)) {
-                    return answerPart.split(/解析:/);
-                } else if (/\s+/.test(answerPart)) {
-                    return answerPart.split(/\s+/);
-                } else {
-                    return [answerPart, ''];
-                }
+                let analysis = data.map((item) => {
+                    item = item.replace(/^.*】/,"")
+                        .replace(/^[a-zA-Z](\.|\。)*/, "")
+                        .replace(/^.*解析(\:|\：)/, "")
+                        .replace(/^正确答案:[a-zA-Z]{1}.*$/, "");
+                    console.log(item);
+                })
             }
         }
     </script>

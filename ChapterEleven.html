@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    div{
+        height: 100%;
+        width: 100%;
+        background-color: aqua;
+        margin-bottom: 20px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="haha">dd</div>
+    <div class="gotoSeven">gotoSeven</div>
+    <div class="noReturn">gotoSeven noReturn</div>
+
+    <script>
+        window.onload = function () {
+            let haha = document.querySelector("#haha");
+            console.log(haha);
+            let gotoSeven = document.getElementsByClassName("gotoSeven");
+            console.log(gotoSeven);
+
+            let divs = document.getElementsByTagName("div");
+            for(let i=0,len = divs.length;i<len;i++){
+                let divone = document.createElement("div");
+                document.body.appendChild(divone);
+            }
+        }
+    </script>
+</body>
+
+</html>
