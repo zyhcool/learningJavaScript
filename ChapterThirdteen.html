@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>ChapterThirdteen:事件委托</title>
+    <meta charset="utf-8">
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <ul id="parent">
+        <li id="child1">Item1</li>
+        <li id="child2">Item2</li>
+        <li id="child3">Item3</li>
+        <li id="child4">Item4</li>
+        <li id="child5">Item5</li>
+    </ul>
+    <script type="text/javascript">
+    window.onload = function(){
+        let parent = document.querySelector("#parent");
+        parent.addEventListener("click",function(e){
+            console.log(e.target.id);
+            e.target.addEventListener("click",function(){
+                console.log("this");
+            })
+        })
+    }
+    </script>
+</body>
+
+</html>

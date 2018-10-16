@@ -5,26 +5,21 @@
     <title>上传图片</title>
     <meta charset="utf-8">
     <style>
-    
-    div#click{
-        width: 100px;
-        height: 100px;
-        border: 1px solid yellowgreen;
-    }
+    ::selection{
+        color:aqua;
+        background-color: bisque;
+    }        
     </style>
 </head>
 
 <body>
-    <div onclick="console.log('1')">
-        <div onclick="console.log('2')">
-            <div onclick="console.log('3')">
-                <div id="click" onclick="console.log('4');try{this.stopPropagation();}catch(e){}">click me</div>
-            </div>
-        </div>
-    </div>
+    <div id="click">slfjkseeoiwkdsjfsfksmdfusejfsnfkljdfksdfm</div>
     <script type="text/javascript">
-    let event = "haha";
-    console.log(event);
+        function Captcha(name){
+            this.name = name;
+        }
+        let captcha = new Captcha("zyh");
+        console.log(captcha.name);
     </script>
 </body>
 
