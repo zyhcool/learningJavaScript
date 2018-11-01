@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .select {
+        position: relative;
+        display: inline-block;
+    }
+
+    .select .active,
+    .select:focus {
+        outline: none;
+        box-shadow: 0 0 3px 1px #227755;
+    }
+
+    .select .optList {
+        position: absolute;
+        top: 100%;
+        left: 0;
+    }
+
+    .turn {
+        color: #227755;
+    }
+</style>
+
+<body>
+    <div class="select" tabindex="0">
+        <span class="value">Cherry</span>
+        <ul class="optList">
+            <li class="option">Cherry</li>
+            <li class="option">Lemon</li>
+            <li class="option">Banana</li>
+            <li class="option">Strawberry</li>
+            <li class="option">Apple</li>
+        </ul>
+    </div>
+    <div class="test">hashfsdkjfds</div>
+</body>
+<script>
+    window.onload = function () {
+        let test = document.querySelector(".test");
+        test.addEventListener("click", () => {
+            test.classList.toggle("turn");
+        })
+    }
+</script>
+
+</html>
