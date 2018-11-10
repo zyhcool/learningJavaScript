@@ -20,7 +20,7 @@ let transporter = nodemailer.createTransport({
     }
 });
 
-let transporter = nodemailer.createTransport("smtps://1806904196%40qq.com:jtqbijuhnwqfbdae@smtp.qq.com");
+// let transporter = nodemailer.createTransport("smtps://1806904196%40qq.com:jtqbijuhnwqfbdae@smtp.qq.com");
 
 let mailOptions={
     from:"Cool<1806904196@qq.com>",
