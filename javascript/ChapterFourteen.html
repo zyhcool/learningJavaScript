@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        input[type="text"]:focus{
+            background-color: #fed136;
+        }
+        input[type="text"]{
+            background-color: #b454b4; 
+        }
+    </style>
+</head>
+<body>
+    <form action="http://localhost:4000/api/message/">
+            <input type="text" autofocus/>
+            <input type="submit" value="send">
+            <textarea cols="5" placeholder="hfsfdsjkff">hkdfkjdskdlkd</textarea>
+    </form>
+    <script>
+        window.onload = ()=>{
+            let form = document.querySelector("form");
+            form.elements[2].addEventListener("focus",(e)=>{
+                let inputEle = form.elements[0];
+                console.log(inputEle.value);
+                // e.preventDefault();
+            form.elements[2].select();
+            })
+        }
+    </script>
+</body>
+</html>
