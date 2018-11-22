@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ChapterSixteen</title>
+    <style>
+        .dropzone{
+            width: 300px;
+            height: 300px;
+            background-color: #999;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- dropEffect 只起到提示光标的作用，具体是移动还是复制要看用户自己写的代码 -->
+    <div id="dragEle" draggable="true" ondragstart="ondragstartHandler(event);">
+        haha
+    </div>
+
+    <div class="dropzone" ondrop="ondropHandler(event)" ondragover="ondragoverHandler(event)">dropzone hahah</div>
+    <script>
+        let ondragstartHandler = (e) => {
+            console.log("drag Start");
+            e.dataTransfer.setData("text/plain", e.target.id);
+
+        }
+        let ondragoverHandler = (e)=>{
+            e.preventDefault();
+            console.log("dragover");
+            e.dataTransfer.dropEffect = "link";
+        }
+        let ondropHandler=(e)=>{
+            console.log("dropped !!");
+            let data = e.dataTransfer.getData("text/plain");
+            e.target.appendChild(document.getElementById(data));
+        }
+    </script>
+</body>
+
+</html>

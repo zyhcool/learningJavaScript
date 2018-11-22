@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,22 +15,60 @@
         }
     </style>
 </head>
+
 <body>
     <form action="http://localhost:4000/api/message/">
-            <input type="text" autofocus/>
-            <input type="submit" value="send">
-            <textarea cols="5" placeholder="hfsfdsjkff">hkdfkjdskdlkd</textarea>
+        <input type="text" autofocus />
+        <input type="submit" value="send">
+        <textarea cols="20" rows="4" placeholder="hfsfdsjkff">hkdfkjdskdlkd</textarea>
+        <select>
+            <option value="1">111</option>
+            <option value="2">222</option>
+            <option value="3">333</option>
+        </select>
+        <select multiple="true" id="mult">
+            <option value="1">111</option>
+            <option value="2">222</option>
+            <option value="3">333</option>
+            <option value="4">444</option>
+        </select>
     </form>
     <script>
-        window.onload = ()=>{
+        window.onload = () => {
             let form = document.querySelector("form");
-            form.elements[2].addEventListener("focus",(e)=>{
+            form.elements[2].addEventListener("focus", (e) => {
                 let inputEle = form.elements[0];
                 console.log(inputEle.value);
                 // e.preventDefault();
-            form.elements[2].select();
+                form.elements[2].select();
             })
+            form.elements[0].addEventListener("keypress", (e) => {
+                console.log(e.charCode);
+
+                e.preventDefault();
+            })
+
+            let selectEle = document.querySelector("select");
+            let selectIndex = selectEle.selectedIndex;
+            let selectOption = selectEle.options[selectIndex];
+            console.log(selectEle.multiple);
+            selectEle.onchange = () => {
+                let selectIndex = selectEle.selectedIndex;
+                let selectOption = selectEle.options[selectIndex];
+                console.log(selectOption);
+                console.log(selectOption.text+"selectValue: "+selectOption.value);
+            }
+
+            let multSelect = document.querySelector("#mult");
+            multSelect.onchange = ()=>{
+                console.log(multSelect.options);
+                let selectedOptions = multSelect.options.filter((option)=>{
+                    return option.selected;
+                })
+            }
+            console.log(selectOption);
         }
     </script>
 </body>
+
 </html>
