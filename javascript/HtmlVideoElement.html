@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <video src="C:/Users/Cool/Documents/第二章.mp4" width="500px" height="350px" autoplay="true" controls poster="C:/Users/Cool/Desktop/favicon.png"
+        ontimeupdate="onTimeUpdate(event)"></video>
+    <script>
+        let video = document.querySelector("video");
+        let lastWatch = 300;
+        video.currentTime = lastWatch;
+        video.ontimeupdate = () => {
+            let current = video.currentTime;
+            if (current - lastWatch > 1) {
+                video.currentTime = lastWatch;
+            }
+            if (lastWatch < video.currentTime) {
+                lastWatch = video.currentTime;
+            }
+            // console.log("-------------------------")
+            // console.log("lastWatch: " + lastWatch);
+            // console.log("current: " + current);
+        }
+        video.oncanplay = (e)=>{
+            console.log("canplay: "+e.target.currentTime);
+        }
+    </script>
+</body>
+
+</html>
