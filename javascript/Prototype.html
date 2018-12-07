@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        window.onload = () => {
+            console.log("---------------------------start");
+            /*
+            * ========================================================
+            *   对象字面量创建对象   
+            * ========================================================*/
+            let person = new Object();
+            person = {
+                name: "zyh",
+                age: 19,
+                // sayHi: ()=>{
+                //     console.log(this.name + "say hi to you!");
+                // },
+                sayHi: function () {
+                    console.log(this.name + " say hi to you!"); // 箭头函数的作用域改变？
+                }
+            }
+            person.sayHi();
+
+            person.name = "haha";
+            console.log("expect haha, and the truth is " + person.name);
+
+            Object.defineProperty(person, "name", {
+                writable: false,
+                value: "cool",
+            })
+            console.log("---after re-defineProperty of person---");
+            console.log(person.name);
+            person.name = "xixi";
+            console.log("will person.name become 'xixi'? the person name is " + person.name);
+
+            let book = {
+                _year: 2018,
+                edition: 1,
+            }
+
+            Object.defineProperty(book, "year", {
+                get: function () {
+                    return this._year;
+                },
+                set: function (value) {
+                    if (!isNaN(value) && value > this._year) {
+                        this.edition += value - this._year;
+                        this._year = value;
+                    }
+                }
+            });
+            book.year = 2019;
+            console.log("book _year: " + book._year + ";book year: " + book.year + ";book edition: " + book.edition);
+
+            let book1 = {
+                _year: 2018,
+                edition: 1,
+                year: {
+                    get: function () {
+                        return this._year;
+                    },
+                    set: function (value) {
+                        if (!isNaN(value) && value > this._year) {
+                            this.edition += value - this._year;
+                            this._year = value;
+                        }
+                    }
+                },
+            };
+            book1.year = 2020;
+            console.log("book1 _year: " + book1._year + ";book1 year: " + book1.year + ";book1 edition: " + book1.edition);
+            // 显然 book1 的构造访问器属性的方法不可行
+
+            let book2 = {}
+            Object.defineProperties(book2, {
+                _year: {
+                    value: 2018,
+                },
+                edition: {
+                    value: 1,
+                },
+                year: {
+                    get: function () {
+                        return this._year;
+                    },
+                    set: function (value) {
+                        if (!isNaN(value) && value > this._year) {
+                            this.edition += value - this._year;
+                            this._year = value;
+                        }
+                    }
+                },
+            });
+            book2.year = 2021;
+            console.log("book2 _year: " + book2._year + ";book2 year: " + book2.year + ";book2 edition: " + book2.edition);
+            // 为什么这个也不行。。。。
+
+            /*
+            * ========================================================
+            *   创建对象之 -- 工厂模式   (使用函数封装创建对象的过程而已，跟上例创建对象本质一样)
+            * ========================================================*/
+            let createPerson = function (name, age) {
+                let person = new Object();
+                person = {
+                    name,
+                    age,
+                    sayName: function () {
+                        console.log("My name is " + this.name);
+                    },
+                };
+                return person;
+            }
+            let xiaoming = createPerson("xiaoming", 12);
+            console.log("xiaoming's name is " + xiaoming.name);
+            console.log("xiaoming's age is " + xiaoming.age);
+            xiaoming.sayName();
+
+            /*
+            * ========================================================
+            *   创建对象之 -- 构造函数模式   (本身也是函数，只是使用 new 可以构造对象)
+            * ========================================================*/
+            function Person(name, age) {
+                this.name = name;
+                this.age = age;
+                this.sayName = function () {
+                    console.log("My name is " + this.name);
+                };
+            };
+            let xiaohong = new Person("xiaohong", 23);
+            console.log("xiaohong's name: " + xiaohong.name + ";xiaohong's age: " + xiaohong.age);
+            xiaohong.sayName();
+
+            /*
+            * ========================================================
+            *   创建对象之 -- 原型模式   （共享属性和方法）
+            * ========================================================*/
+            console.log(Person.prototype); // 结果为 Person.prototype == { constructor: Person(name,age) }
+            function Person1() { };
+            Person1.prototype.name = "zyh";
+            Person1.prototype.age = 19;
+            Person1.prototype.sayName = function () {
+                console.log("My name is " + this.name);
+            }
+            console.log("Person1.prototype: " + Person1.prototype);
+            let zyh = new Person1();
+            zyh.sayName();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            console.log("---------------------------end");
+        }    
+    </script>
+</body>
+
+</html>
