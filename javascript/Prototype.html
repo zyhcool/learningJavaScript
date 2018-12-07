@@ -222,7 +222,51 @@
             * ========================================================
             *   创建对象之 组合使用构造模式和原型模式   
             * ========================================================*/
-            
+            console.log("=========组合使用构造模式和原型模式=====")
+            /*
+            * ========================================================
+            *   构造函数模式用来构造实例属性，原型模式用来定义共享方法和属性   
+            * ========================================================*/
+            let Animal = function(name,type,weight,sound){
+                this.name = name;
+                this.type = type;
+                this.weight = weight;
+                this.sound = sound;
+            }
+
+            Animal.prototype = {
+                constructor : Animal,
+                say: function(){
+                    console.log(this.sound);
+                }
+            }
+
+            let cat = new Animal("helloKitty","cat",12,"meo~");
+            console.log(cat);
+
+            console.log(Animal.prototype);
+
+            /*
+            * ========================================================
+            *   寄生构造函数模式   
+            * ========================================================*/
+            // 使用该模式为数组操作添加新的方法
+            let MyArray = function(){
+                let arr = new Array();
+                console.log(arguments);
+                arr.push.apply(arr,arguments);
+                arr.sum = function(){
+                    console.log(this);
+                    return this.reduce((s,v)=>{
+                        return s+v;
+                    },0)
+                }
+                return arr;
+            }
+
+            let testArr = new MyArray(2,5,7);
+            let sum = testArr.sum();
+            console.log(sum);
 
 
 
