@@ -268,7 +268,26 @@
             let sum = testArr.sum();
             console.log(sum);
 
+            /*
+            * ========================================================
+            *   继承  原型链   
+            * ========================================================*/
+            console.log("继承 原型链");
+            let SuperType = function(){
+                this.name = "superType";
+                this.sayName = function(){
+                    console.log("I'm SuperType , my name is supertype.");
+                }
+            }
 
+            let SubType = function(){
+                this.name = "subType";
+            }
+
+            SubType.prototype = new SuperType();
+
+            let subTypeInstance = new SubType();
+            console.log(subTypeInstance.name)
 
 
 
