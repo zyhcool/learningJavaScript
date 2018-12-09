@@ -185,13 +185,13 @@
             console.log("zyh's keys: " + Object.getOwnPropertyNames(zyh));
 
             // 
-            let Person2 = function(){};
+            let Person2 = function () { };
             Person2.prototype = {
                 name: "haha",
                 age: 33,
                 job: "developer",
-                sayHi: function(){
-                    console.log(this.name+" say hi! ");
+                sayHi: function () {
+                    console.log(this.name + " say hi! ");
                 }
             }
             console.log("Person1.prototype.constructor: "); // expect output: undefined;
@@ -203,15 +203,15 @@
             console.log(person2.constructor);
 
             // 原型模式的构造方法
-            let Test = function(){}; //   <<====== 构造函数
+            let Test = function () { }; //   <<====== 构造函数
             Test.prototype = { //   <<===== 原型（对象）
                 name: "",
                 type: "",
-                dosomething: function(){
+                dosomething: function () {
                     console.log("I don't know ! I'm just tester !");
                 }
             }
-            Object.defineProperty(Test.prototype,"constructor",{
+            Object.defineProperty(Test.prototype, "constructor", {
                 enumerable: false,
                 value: Test,
             });
@@ -227,7 +227,7 @@
             * ========================================================
             *   构造函数模式用来构造实例属性，原型模式用来定义共享方法和属性   
             * ========================================================*/
-            let Animal = function(name,type,weight,sound){
+            let Animal = function (name, type, weight, sound) {
                 this.name = name;
                 this.type = type;
                 this.weight = weight;
@@ -235,13 +235,13 @@
             }
 
             Animal.prototype = {
-                constructor : Animal,
-                say: function(){
+                constructor: Animal,
+                say: function () {
                     console.log(this.sound);
                 }
             }
 
-            let cat = new Animal("helloKitty","cat",12,"meo~");
+            let cat = new Animal("helloKitty", "cat", 12, "meo~");
             console.log(cat);
 
             console.log(Animal.prototype);
@@ -251,20 +251,20 @@
             *   寄生构造函数模式   
             * ========================================================*/
             // 使用该模式为数组操作添加新的方法
-            let MyArray = function(){
+            let MyArray = function () {
                 let arr = new Array();
                 console.log(arguments);
-                arr.push.apply(arr,arguments);
-                arr.sum = function(){
+                arr.push.apply(arr, arguments);
+                arr.sum = function () {
                     console.log(this);
-                    return this.reduce((s,v)=>{
-                        return s+v;
-                    },0)
+                    return this.reduce((s, v) => {
+                        return s + v;
+                    }, 0)
                 }
                 return arr;
             }
 
-            let testArr = new MyArray(2,5,7);
+            let testArr = new MyArray(2, 5, 7);
             let sum = testArr.sum();
             console.log(sum);
 
@@ -273,21 +273,95 @@
             *   继承  原型链   
             * ========================================================*/
             console.log("继承 原型链");
-            let SuperType = function(){
+            let SuperType = function () {
                 this.name = "superType";
-                this.sayName = function(){
+                this.sayName = function () {
                     console.log("I'm SuperType , my name is supertype.");
                 }
             }
 
-            let SubType = function(){
+            let SubType = function () {
                 this.name = "subType";
             }
 
             SubType.prototype = new SuperType();
 
             let subTypeInstance = new SubType();
-            console.log(subTypeInstance.name)
+            console.log(subTypeInstance.name);
+            subTypeInstance.sayName();
+
+            console.log("重写原型方法和属性");
+            SubType.prototype.sayName = function () {
+                console.log("I've been rewrited method!");
+            }
+            let instance = new SubType();
+            instance.sayName();
+            let superTypeInstance = new SuperType();
+            superTypeInstance.sayName();
+
+            /*
+            * ========================================================
+            *   组合继承   
+            * ========================================================*/
+            console.log("------------------组合继承-------");
+            console.log("继承Animal");
+            let Dog = function (name, type, weight, sound, legs) {
+                Animal.call(this, name, type, weight, sound); // 实现属性的继承
+                this.legs = legs;
+            };
+            Dog.prototype = new Animal();
+            Dog.prototype.constructor = Dog;
+            Dog.prototype.countLegs = function () {
+                console.log("I'm " + this.type + ", and my name is "+ this.name + ", I have " + this.legs + " legs.");
+            }
+            let dog = new Dog("wangwang", "dog", 120, "Wang Wang", 4);
+            console.log("dog: ");
+            console.log(dog);
+            dog.countLegs();
+
+
+            /*
+            * ========================================================
+            *   寄生式组合继承    
+            * ========================================================*/
+            console.log("------------------寄生式组合继承--------");
+
+            let Machine = function(name){
+                this.name = name;
+            }
+
+            Machine.prototype.sayName = function(){
+                console.log(`my name is ${this.name}`);
+            }
+
+            function object(o){
+                function F(){};
+                F.prototype = o;
+                return new F();
+            }
+
+            function initPrototype(subtype,supertype){
+                let prototype = object(supertype.prototype);
+                prototype.constructor = subtype;
+                subtype.prototype = prototype;
+            }
+
+            let Motor = function(name,year){
+                Machine.call(this,name);
+                this.year = year;
+            };
+            initPrototype(Motor,Machine);
+
+            Motor.prototype.sayYear = function(){
+                console.log(this.year);
+            }
+
+            let motor = new Motor("dada",2008);
+            console.log("motor: ");
+            console.log(motor);
+            motor.sayYear();
+            let machine = new Machine("machine");
+            machine.sayYear(); // error！！ sayYear()是 Motor 的方法，不是 Machine 的方法
 
 
 
