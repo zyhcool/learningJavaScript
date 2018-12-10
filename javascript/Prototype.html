@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script src="prototype.js"></script>
 </head>
 
 <body>
@@ -312,7 +313,7 @@
             Dog.prototype = new Animal();
             Dog.prototype.constructor = Dog;
             Dog.prototype.countLegs = function () {
-                console.log("I'm " + this.type + ", and my name is "+ this.name + ", I have " + this.legs + " legs.");
+                console.log("I'm " + this.type + ", and my name is " + this.name + ", I have " + this.legs + " legs.");
             }
             let dog = new Dog("wangwang", "dog", 120, "Wang Wang", 4);
             console.log("dog: ");
@@ -326,42 +327,48 @@
             * ========================================================*/
             console.log("------------------寄生式组合继承--------");
 
-            let Machine = function(name){
+            let Machine = function (name) {
                 this.name = name;
             }
 
-            Machine.prototype.sayName = function(){
+            Machine.prototype.sayName = function () {
                 console.log(`my name is ${this.name}`);
             }
 
-            function object(o){
-                function F(){};
+            function object(o) {
+                function F() { };
                 F.prototype = o;
                 return new F();
             }
 
-            function initPrototype(subtype,supertype){
+            function initPrototype(subtype, supertype) {
                 let prototype = object(supertype.prototype);
                 prototype.constructor = subtype;
                 subtype.prototype = prototype;
             }
 
-            let Motor = function(name,year){
-                Machine.call(this,name);
+            let Motor = function (name, year) {
+                Machine.call(this, name);
                 this.year = year;
             };
-            initPrototype(Motor,Machine);
+            initPrototype(Motor, Machine);
 
-            Motor.prototype.sayYear = function(){
+            Motor.prototype.sayYear = function () {
                 console.log(this.year);
             }
 
-            let motor = new Motor("dada",2008);
+            let motor = new Motor("dada", 2008);
             console.log("motor: ");
             console.log(motor);
             motor.sayYear();
             let machine = new Machine("machine");
-            machine.sayYear(); // error！！ sayYear()是 Motor 的方法，不是 Machine 的方法
+            // machine.sayYear(); // error！！ sayYear()是 Motor 的方法，不是 Machine 的方法
+
+
+
+            new Wow().init();
+            let wow = new Wow("wow", 12);
+            console.log(wow.name);
 
         }    
     </script>
