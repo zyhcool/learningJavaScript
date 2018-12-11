@@ -65,10 +65,13 @@
     </div>
     <script>
         window.onload = function(){
-            let divs = document.querySelectorAll("div.td");
-            console.log(divs.length);
-            let doms = Array.prototype.splice.call(divs,1);
-            // console.log(doms);
+            
+            let div = document.createElement("div");
+            let str = "";
+            for(let key in div){
+                str += key + " "
+            }
+            console.log(str);
         }
     </script>
 </body>
