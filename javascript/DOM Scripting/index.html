@@ -1,14 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
+    <h2>关于 childNodes</h2>
+    <div id="d1"><div><div id="iji">jfksdj</div><div class="jksd">jfksdj</div></div><div>second</div></div>
+    <div id="d2">
+        <div>
+            <div id="iji">jfksdj</div>
+            <div class="jksd">jfksdj</div>
+        </div>
+        <div>second</div>
+    </div>
+    <div id="d3">
+
+        <div>
+            <div id="iji">jfksdj</div>
+            <div class="jksd">jfksdj</div>
+        </div>
+        <div>second</div>
+
+    </div>
+    <audio src="C:/CloudMusic/朴树 - 送别.mp3"></audio>
     <script>
-        
+        window.onload = () => {
+            /*
+            * ========================================================
+            *   childNodes 的认识，childNodes只包含元素的下一级子元素，换行符、空格等被认为text node，
+                多个换行符只表示一个text node，但是 data 属性不一样
+                “Any whitespace will create a #text node, from a 
+                single space to multiple spaces, returns, tabs, and so on.” -- from MDN
+            * ========================================================*/
+            console.log("======================关于 childNodes =========");
+            let div1 = document.querySelector("#d1");
+            let div2 = document.querySelector("#d2");
+            let div3 = document.querySelector("#d3");
+            let children1 = div1.childNodes;
+            let children2 = div2.childNodes;
+            let children3 = div3.childNodes;
+            console.log(children1);
+            console.log(children2);
+            console.log(children3);
+
+
+            /*
+            * ========================================================
+            *   audio 自动播放   
+            * ========================================================*/
+            
+            let audio = document.querySelector("audio");
+            document.addEventListener("click",()=>{
+                audio.play();
+            })
+
+
+        }
     </script>
 </body>
+
 </html>
