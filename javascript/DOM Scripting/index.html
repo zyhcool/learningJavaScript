@@ -62,9 +62,19 @@
 
             /*
             * ========================================================
-            *   地方郭德纲的风格
+            *   window.onload  
             * ========================================================*/
-            
+            let oldOnload = window.onload;
+            if(typeof oldOnload === "function"){
+                setTimeout(()=> {
+                    console.log("true");
+                    window.onload = alert("hahaha");
+                },3000);
+            } else {
+                setTimeout(() => {
+                    alert("false");
+                }, 3000);
+            }
             
 
 
