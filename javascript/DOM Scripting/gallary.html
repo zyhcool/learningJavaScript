@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul {
+            list-style: none;
+        }
+
+        li {
+            float: left;
+            margin: 20px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        #placeholder>img {
+            width: 500px;
+        }
+
+        .clear {
+            clear: both;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav">
+        <ul>
+            <li><a href="static/1.jpg" title="111111">111</a></li>
+            <li><a href="static/2.jpg" title="222222">222</a></li>
+            <li><a href="static/3.jpg" title="333333">333</a></li>
+            <li><a href="static/4.jpg" title="444444">444</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+    <!-- <div id="placeholder">
+        <img src="static/5.jpg">
+        <p class="desc">点击切换图片</p>
+    </div> -->
+    <script>
+        let addEventLoad = (func) => {
+            let oldLoad = window.onload;
+            if (typeof oldLoad === "function") {
+                window.onload = function () {
+                    oldLoad();
+                    func();
+                }
+            } else {
+                window.onload = func;
+            }
+        }
+        let insertAfter = (parentNode, targetNode, insertNode) => {
+            if (targetNode === parentNode.lastChild) {
+                parentNode.appendChild(insertNode);
+            } else {
+                let next = targetNode.nextSibling;
+                parentNode.insertBefore(insertNode, next);
+            }
+        }
+        let preparePlaceholder = () => {
+            console.log("preparePlaceholder");
+            if (!document.createElement) {
+                return;
+            }
+            let placeholder = document.createElement("div");
+            placeholder.setAttribute("id", "placeholder");
+            let placeImg = document.createElement("img");
+            placeImg.setAttribute("src", "static/5.jpg");
+            let desc = document.createElement("p");
+            desc.appendChild(document.createTextNode("点击切换图片"));
+            desc.setAttribute("class", "desc");
+            placeholder.appendChild(placeImg);
+            placeholder.appendChild(desc);
+            document.body.appendChild(placeholder);
+            console.log("after")
+        }
+        let prepareList = () => {
+            console.log("prepareList");
+            let links = document.querySelectorAll(".nav a");
+            console.log(links);
+            links.forEach((link) => {
+                link.onclick = function (e) {
+                    e.preventDefault();
+                    showPic(this);
+                }
+            })
+        }
+        let showPic = (link) => {
+            console.log(link);
+            let src = link.getAttribute("href");
+            let title = link.getAttribute("title");
+            let img = document.querySelector("#placeholder img");
+            console.log("img: " + img);
+            img.setAttribute("src", src);
+            let p = document.querySelector("#placeholder p");
+            console.log(p.firstChild);
+            p.firstChild.nodeValue = title;
+        }
+        addEventLoad(preparePlaceholder);
+        addEventLoad(prepareList);
+        console.log("hshdf")
+    </script>
+</body>
+
+</html>
