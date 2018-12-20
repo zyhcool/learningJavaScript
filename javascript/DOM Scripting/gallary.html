@@ -65,7 +65,6 @@
             }
         }
         let preparePlaceholder = () => {
-            console.log("preparePlaceholder");
             if (!document.createElement) {
                 return;
             }
@@ -79,12 +78,9 @@
             placeholder.appendChild(placeImg);
             placeholder.appendChild(desc);
             document.body.appendChild(placeholder);
-            console.log("after")
         }
         let prepareList = () => {
-            console.log("prepareList");
             let links = document.querySelectorAll(".nav a");
-            console.log(links);
             links.forEach((link) => {
                 link.onclick = function (e) {
                     e.preventDefault();
@@ -93,19 +89,15 @@
             })
         }
         let showPic = (link) => {
-            console.log(link);
             let src = link.getAttribute("href");
             let title = link.getAttribute("title");
             let img = document.querySelector("#placeholder img");
-            console.log("img: " + img);
             img.setAttribute("src", src);
             let p = document.querySelector("#placeholder p");
-            console.log(p.firstChild);
             p.firstChild.nodeValue = title;
         }
         addEventLoad(preparePlaceholder);
         addEventLoad(prepareList);
-        console.log("hshdf")
     </script>
 </body>
 
