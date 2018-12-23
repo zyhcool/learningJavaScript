@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <p id="target">MOVE ME , PLEASE !</p>
+    <script>
+        window.onload = () => {
+            let target = document.querySelector("#target");
+            target.style.position = "absolute";
+            target.style.left = "400px";
+            target.style.top = "400px";
+
+            /*
+            * ========================================================
+            *   单方向移动   水平移动
+            * ========================================================*/
+            let moveHorizontal = (ele) =>{
+                target.style.left = 1+"px";
+            }
+            let move =(ele,x,time)=>{
+                if(parseInt(ele.style.left) === x ){
+                    return;
+                }
+                setTimeout(() => {
+                    moveHorizontal(ele);
+                }, time);
+            }
+
+        }
+    </script>
+</body>
+
+</html>
