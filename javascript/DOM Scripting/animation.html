@@ -14,24 +14,55 @@
         window.onload = () => {
             let target = document.querySelector("#target");
             target.style.position = "absolute";
-            target.style.left = "400px";
-            target.style.top = "400px";
+            target.style.left = "200px";
+            target.style.top = "200px";
+
 
             /*
             * ========================================================
             *   单方向移动   水平移动
             * ========================================================*/
-            let moveHorizontal = (ele) =>{
-                target.style.left = 1+"px";
+            let moveHorizontal = (ele) => {
+                let x = parseInt(ele.style.left) + 1;
+                ele.style.left = x + "px";
             }
-            let move =(ele,x,time)=>{
-                if(parseInt(ele.style.left) === x ){
-                    return;
-                }
-                setTimeout(() => {
+            let move1 = (ele, x) => {
+                let time = setInterval(() => {
+                    let xPos = parseInt(ele.style.left);
+                    if (xPos > x) {
+                        clearInterval(time);
+                        return;
+                    }
                     moveHorizontal(ele);
-                }, time);
+                }, 50);
             }
+            // target.onclick = () => move1(target, 800);
+
+
+
+            /*
+            * ========================================================
+            *   双方向移动   匀速
+            * ========================================================*/
+            let move = (ele, xTar, yTar) => {
+                ele.style.left = xTar + "px";
+                ele.styte.top = yTar + "px";
+                console.log(ele.style.top);
+            }
+
+            let startMove = (ele, xTar, yTar) => {
+                let xPos = parseInt(ele.style.left);
+                let yPos = parseInt(ele.style.top);
+                let timer = setInterval(() => {
+                    if (xPos >= xTar || yPos >= yTar) {
+                        clearInterval(timer);
+                        return;
+                    }
+                    move(ele, (xTar - xPos) / 20, (yTar - yPos) / 20);
+                }, 500);
+            }
+            target.onclick = () => startMove(target, 800, 800);
+
         }
     </script>
 </body>
