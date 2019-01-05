@@ -5,74 +5,82 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
     <title>test.html</title>
-    <!-- <link rel="stylesheet" href="../static/css/bootstrap-v3.3.7.css"> -->
+    <link rel="stylesheet" href="style.css">
 
     <style>
-        .table{
-            width: 200px;
-            margin-left: 50px;
+        div {
+            box-sizing: border-box;
         }
-        .thead{
-            background-color: #f8f8f8;
-            border-bottom: 1px solid #999;
+
+        .tongdao {
+            font-family: "Yzy-cartoon";
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            margin-left: -304px;
         }
-        .thead,.row{
-            border-bottom: 1px solid #e9e9e9;
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
+
+        .title {
+            width: 203px;
+            height: 58px;
+            background: url("C:/Users/Cool/Desktop/title.png") no-repeat center / 100% 100%;
+            position: absolute;
+            left: 50%;
+            top: -40px;
+            margin-left: -100px;
         }
-        .th,.td{
-            flex: 1;
-            background-color: skyblue;
-            margin: 3px;
-            min-width: 0;
-            overflow-wrap: break-word;
+
+        .items {
+            background: url("C:/Users/Cool/Desktop/bg.png") no-repeat center/100% 100%;
+            width: 608px;
+            height: 85px;
+            padding: 19px 13px 13px 17px;
+            display: table;
+            border-collapse: separate;
+            border-spacing: 5px 0;
         }
+
+        .items>div {
+            width: 53px;
+            height: 53px;
+            text-align: center;
+            background: url("C:/Users/Cool/Desktop/item-bg.png") no-repeat center/100% 100%;
+            font-size: 14px;
+            color: #fff;
+            letter-spacing: 2px;
+            text-shadow:
+                1px 1px #B46903,
+                -1px -1px #B46903,
+                -1px 1px #B46903,
+                1px -1px #B46903,
+                1px 6px 5px #B46903;
+            vertical-align: middle;
+            display: table-cell;
+            padding: 6px;
+        }
+
     </style>
 
 </head>
 
 <body>
-    <div class="table">
-        <div class="thead">
-            <div class="th">thead11</div>
-            <div class="th">thead22</div>
-            <div class="th">thead33</div>
-        </div>
-        <div class="tbody">
-            <div class="row">
-                <div class="td">hahahahahahahahahahaha</div>
-                <div class="td">hahahahahahahahahahaha</div>
-                <div class="td">hahahahahahahahahahaha</div>
-            </div>
-            <div class="row">
-                <div class="td">xixixixixixixixixixixi</div>
-                <div class="td">hahahahahahahahahahaha</div>
-                <div class="td">hahahahahahahahahahaha</div>
-            </div>
-            <div class="row">
-                <div class="td">hahahahahahahahahahaha</div>
-                <div class="td">hahahahahahahahahahaha</div>
-                <div class="td">hahahahahahahahahahaha</div>
-            </div>
-            <div class="row">
-                <div class="td">hahahahahahahahahahaha</div>
-                <div class="td">hahahahahahahahahahaha</div>
-                <div class="td">hahahahahahahahahahaha</div>
-            </div>
+    <div class="tongdao">
+        <div class="title"></div>
+        <div class="items">
+            <div>教室</div>
+            <div>角色室</div>
+            <div>大厅一楼</div>
+            <div>构建室</div>
+            <div>教室</div>
+            <div>构建室</div>
+            <div>大厅一楼</div>
+            <div>构建室</div>
+            <div>教室</div>
+            <div>教室</div>
         </div>
     </div>
     <script>
-        window.onload = function(){
-            
-            let div = document.createElement("div");
-            let str = "";
-            for(let key in div){
-                str += key + " "
-            }
-            console.log(str);
-        }
+
     </script>
 </body>
 
