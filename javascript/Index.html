@@ -7,31 +7,56 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-    #root{
-        width: 200px;
-        height: 200px;
-        background-color: aquamarine;
-    }
-    </style>
-    <script>
-        window.onload = function(){
-            let mydiv = document.querySelector("#root");
-            mydiv.onclick = function(e){
-                console.log(e);
-            }
+        .box {
+            width: 200px;
+            height: 300px;
+            border: 1px solid #000;
+            word-break: break-all;
+            position: absolute;
+            left: 300px;
+            top: 200px;
         }
 
-    </script>
+        .content {
+            position: absolute;
+            top: 0;
+            transition: ease 0.3s;
+        }
+
+    </style>
 </head>
 
 <body>
-    <div id="root">
-        <div class="l2">
-            <div class="l3"></div>
-        </div>
+    <div class="box">
+        <div class="content">JFIEUYERTIHXVMNSOUTYOPIGKFDHGIUEWYJD;FUYFIUFNDJGYFERUIJFKDNGEWIOUGGFDHGEUIRYTHDNFJFIEUYERTIHXVMNSOUTYOPIGKFDHGIUEWYJD;FUYFIUFNDJGYFERUIJFKDNGEWIOUGGFDHGEUIRYTHDNFJFIEUYERTIHXVMNSOUTYOPIGKFDHGIUEWYJD;FUYFIUFNDJGYFERUIJFKDNGEWIOUGGFDHGEUIRYTHDNFJFIEUYERTIHXVMNSOUTYOPIGKFDHGIUEWYJD;FUYFIUFNDJGYFERUIJFKDNGEWIOUGGFDHGEUIRYTHDNFJFIEUYERTIHXVMNSOUTYOPIGKFDHGIUEWYJD;FUYFIUFNDJGYFERUIJFKDNGEWIOUGGFDHGEUIRYTHDNFJFIEUYERTIHXVMNSOUTYOPIGKFDHGIUEWYJD;FUYFIUFNDJGYFERUIJFKDNGEWIOUGGFDHGEUIRYTHDNFJFIEUYERTIHXVMNSOUTYOPIGKFDHGIUEWYJD;FUYFIUFNDJGYFERUIJFKDNGEWIOUGGFDHGEUIRYTHDNFJFIJFIEUYERTIHXVMNSOUTYOPIGKFDHGIUEWYJD;FUYFIUFNDJGYFERUIJFKDNGEWIOUGGFDHGEUIRYTHDNFJFIEUYERTIHXVMNSOUTYOPIGKFDHGIUEWYJD;FUYFIUFNDJGYFERUIJFKDNGEWIOUGGFDHGEUIRYTHDNFJFIEUYERTIHXVMNSOUTYOPIGKFDHGIUEWYJD;FUYFIUFNDJGYFERUIJFKDNGEWIOUGGFDHGEUIRYTHDNFJFIEUYERTIHXVMNSOUTYOPIGKFDHGIUEWYJD;FUYFIUFNDJGYFERUIJFKDNGEWIOUGGFDHGEUIRYTHDNFJFIEUYERTIHXVMNSOUTYOPIGKFDHGIUEWYJD;FUYFIUFNDJGYFERUIJFKDNGEWIOUGGFDHGEUIRYTHDNFEUYERTIHXVMNSOUTYOPIGKFDHGIUEWYJD;FUYFIUFNDJGYFERUIJFKDNGEWIOUGGFDHGEUIRYTHDNFJFIEUYERTIHXVMNSOUTYOPIGKFDHGIUEWYJD;FUYFIUFNDJGYFERUIJFKDNGEWIOUGGFDHGEUIRYTHDNFJFIEUYERTIHXVMNSOUTYOPIGKFDHGIUEWYJD;FUYFIUFNDJGYFERUIJFKDNGEWIOUGGFDHGEUIRYTHDNF</div>
     </div>
+    <script>
+        window.onload = () => {
+            let content = document.querySelector(".content");
+            let contentHeight = content.clientHeight;
+            console.log(contentHeight);
 
-    <!-- <script src="script.js"></script> -->
+            let pageHeight = 300;
+
+            let pageNum = Math.ceil(contentHeight / pageHeight);
+            let divTabs = document.createElement("div");
+            for (let i = 0; i < pageNum; i++) {
+                let aTab = `<a onclick="changePage(${i})">{"第${i + 1}页"}</a>`;
+                let a = document.createElement("a");
+                a.innerHTML = `第${i + 1}页`;
+                a.onclick = () => changePage(i);
+                divTabs.appendChild(a);
+            }
+            document.body.appendChild(divTabs);
+
+            let changePage = (i) => {
+                console.log(i);
+                content.style.top = -pageHeight * i + "px";
+            }
+
+
+        }
+    </script>
 </body>
 
 </html>
