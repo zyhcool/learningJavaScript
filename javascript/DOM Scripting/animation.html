@@ -20,20 +20,24 @@
 
             /*
             * ========================================================
-            *   单方向移动   水平移动
+            *   单方向移动   水平移动、垂直移动
             * ========================================================*/
-            let moveHorizontal = (ele) => {
-                let x = parseInt(ele.style.left) + 1;
-                ele.style.left = x + "px";
+            let moveHorizontal = (ele, step) => {
+                ele.style.left = parseFloat(ele.style.left) + step + "px";
             }
+            let moveVertical = (ele, step) => {
+                ele.style.top = parseFloat(ele.style.top) + step + "px";
+            }
+
             let move1 = (ele, x) => {
                 let time = setInterval(() => {
-                    let xPos = parseInt(ele.style.left);
+                    let xPos = parseFloat(ele.style.left);
                     if (xPos > x) {
                         clearInterval(time);
                         return;
                     }
-                    moveHorizontal(ele);
+                    moveHorizontal(ele, 10);
+                    moveVertical(ele, 10);
                 }, 50);
             }
             // target.onclick = () => move1(target, 800);
@@ -44,24 +48,29 @@
             * ========================================================
             *   双方向移动   匀速
             * ========================================================*/
-            let move = (ele, xTar, yTar) => {
-                ele.style.left = xTar + "px";
-                ele.styte.top = yTar + "px";
-                console.log(ele.style.top);
+            let moveDoubleWay = (ele, x, y) => {
+                moveHorizontal(ele, x);
+                moveVertical(ele, y);
             }
 
-            let startMove = (ele, xTar, yTar) => {
-                let xPos = parseInt(ele.style.left);
-                let yPos = parseInt(ele.style.top);
+            let startMove = (ele, xTar, yTar, time) => {
+                let xstep = (xTar - parseFloat(ele.style.left)) / (time * 1000 / 50);
+                let ystep = (yTar - parseFloat(ele.style.top)) / (time * 1000 / 50);
+                console.log(ystep);
                 let timer = setInterval(() => {
+                    let xPos = parseFloat(ele.style.left);
+                    let yPos = parseFloat(ele.style.top);
+
                     if (xPos >= xTar || yPos >= yTar) {
                         clearInterval(timer);
+                        ele.style.left = xTar + "px";
+                        ele.style.top = yTar + "px";
                         return;
                     }
-                    move(ele, (xTar - xPos) / 20, (yTar - yPos) / 20);
-                }, 500);
+                    moveDoubleWay(ele, xstep, ystep);
+                }, 50);
             }
-            target.onclick = () => startMove(target, 800, 800);
+            target.onclick = () => startMove(target, 500, 847, 3);
 
         }
     </script>
