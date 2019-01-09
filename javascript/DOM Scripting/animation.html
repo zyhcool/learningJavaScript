@@ -14,9 +14,10 @@
         window.onload = () => {
             let target = document.querySelector("#target");
             target.style.position = "absolute";
-            target.style.left = "200px";
-            target.style.top = "200px";
+            target.style.left = "500px";
+            target.style.top = "500px";
 
+            let timer;
 
             /*
             * ========================================================
@@ -30,14 +31,13 @@
             }
 
             let move1 = (ele, x) => {
-                let time = setInterval(() => {
+                timer = setInterval(() => {
                     let xPos = parseFloat(ele.style.left);
                     if (xPos > x) {
-                        clearInterval(time);
+                        clearInterval(timer);
                         return;
                     }
                     moveHorizontal(ele, 10);
-                    moveVertical(ele, 10);
                 }, 50);
             }
             // target.onclick = () => move1(target, 800);
@@ -53,15 +53,14 @@
                 moveVertical(ele, y);
             }
 
-            let startMove = (ele, xTar, yTar, time) => {
+            let moveEven = (ele, xTar, yTar, time) => {
                 let xstep = (xTar - parseFloat(ele.style.left)) / (time * 1000 / 50);
                 let ystep = (yTar - parseFloat(ele.style.top)) / (time * 1000 / 50);
-                console.log(ystep);
-                let timer = setInterval(() => {
+                timer = setInterval(() => {
                     let xPos = parseFloat(ele.style.left);
                     let yPos = parseFloat(ele.style.top);
 
-                    if (xPos >= xTar || yPos >= yTar) {
+                    if (Math.abs(xPos - xTar) <= 0.1 || Math.abs(yPos - yTar) <= 0.1) {
                         clearInterval(timer);
                         ele.style.left = xTar + "px";
                         ele.style.top = yTar + "px";
@@ -70,7 +69,37 @@
                     moveDoubleWay(ele, xstep, ystep);
                 }, 50);
             }
-            target.onclick = () => startMove(target, 500, 847, 3);
+
+            // target.addEventListener("click", () => {
+            //     clearInterval(timer);
+            //     moveEven(target, 528, 581, 2);
+            // })
+
+            /*
+            * ========================================================
+            *   双方向 变速运动   
+            * ========================================================*/
+            let easeOut = (ele, xTar, yTar) => {
+                timer = setInterval(() => {
+                    let xPos = parseFloat(ele.style.left);
+                    let yPos = parseFloat(ele.style.top);
+                    let xstep = (xTar - xPos) / 10;
+                    let ystep = (yTar - yPos) / 10;
+                    if (Math.abs(xPos - xTar) <= 0.1 || Math.abs(yPos - yTar) <= 0.1) {
+                        clearInterval(timer);
+                        ele.style.left = xTar + "px";
+                        ele.style.top = yTar + "px";
+                        return;
+                    }
+                    moveDoubleWay(ele, xstep, ystep);
+                }, 50);
+            }
+
+            target.addEventListener("click", () => {
+                console.log(this);
+                clearInterval(timer);
+                easeOut(target, 232, 289);
+            })
 
         }
     </script>
