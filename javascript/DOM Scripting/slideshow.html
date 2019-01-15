@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .slideshow {
+            width: 300px;
+            height: 200px;
+            position: relative;
+            margin: 50px auto;
+            background: skyblue;
+            overflow: hidden;
+        }
+
+        .slideshow ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .slideshow ul li {
+            width: 300px;
+            height: 200px;
+            float: left;
+        }
+
+        .slideshow ul li img {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slideshow">
+        <ul>
+            <li><img src="../../static/imgs/1.jpg" alt=""></li>
+            <li><img src="../../static/imgs/2.jpg" alt=""></li>
+            <li><img src="../../static/imgs/3.jpg" alt=""></li>
+            <li><img src="../../static/imgs/4.jpg" alt=""></li>
+            <li><img src="../../static/imgs/5.jpg" alt=""></li>
+        </ul>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        window.onload = () => {
+            let slideshow = document.querySelector(".slideshow");
+            let gallery = slideshow.querySelector("ul");
+            setInterval(() => {
+                let pos = parseInt(gallery.offsetLeft);
+                console.log(pos);
+                if (pos <= -1200) {
+                    gallery.style.left = 0;
+                } else {
+                    console.log(pos);
+                    easeOut(gallery, pos - 300, 0);
+                    console.log(pos);
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+
+</html>

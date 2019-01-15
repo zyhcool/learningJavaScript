@@ -24,15 +24,15 @@
             *   单方向移动   水平移动、垂直移动
             * ========================================================*/
             let moveHorizontal = (ele, step) => {
-                ele.style.left = parseFloat(ele.style.left) + step + "px";
+                ele.style.left = parseFloat(ele.offsetLeft) + step + "px";
             }
             let moveVertical = (ele, step) => {
-                ele.style.top = parseFloat(ele.style.top) + step + "px";
+                ele.style.top = parseFloat(ele.offsetTop) + step + "px";
             }
 
             let move1 = (ele, x) => {
                 timer = setInterval(() => {
-                    let xPos = parseFloat(ele.style.left);
+                    let xPos = parseFloat(ele.offsetLeft);
                     if (xPos > x) {
                         clearInterval(timer);
                         return;
@@ -54,11 +54,11 @@
             }
 
             let moveEven = (ele, xTar, yTar, time) => {
-                let xstep = (xTar - parseFloat(ele.style.left)) / (time * 1000 / 50);
-                let ystep = (yTar - parseFloat(ele.style.top)) / (time * 1000 / 50);
+                let xstep = (xTar - parseFloat(ele.offsetLeft)) / (time * 1000 / 50);
+                let ystep = (yTar - parseFloat(ele.offsetTop)) / (time * 1000 / 50);
                 timer = setInterval(() => {
-                    let xPos = parseFloat(ele.style.left);
-                    let yPos = parseFloat(ele.style.top);
+                    let xPos = parseFloat(ele.offsetLeft);
+                    let yPos = parseFloat(ele.offsetTop);
 
                     if (Math.abs(xPos - xTar) <= 0.1 || Math.abs(yPos - yTar) <= 0.1) {
                         clearInterval(timer);
@@ -81,8 +81,8 @@
             * ========================================================*/
             let easeOut = (ele, xTar, yTar) => {
                 timer = setInterval(() => {
-                    let xPos = parseFloat(ele.style.left);
-                    let yPos = parseFloat(ele.style.top);
+                    let xPos = parseFloat(ele.offsetLeft);
+                    let yPos = parseFloat(ele.offsetTop);
                     let xstep = (xTar - xPos) / 10;
                     let ystep = (yTar - yPos) / 10;
                     if (Math.abs(xPos - xTar) <= 0.1 || Math.abs(yPos - yTar) <= 0.1) {
