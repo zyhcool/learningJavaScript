@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        window.onload = () => {
+
+            /*
+            * ========================================================
+            *   函数的方法调用模式 -- the method invocation pattern   
+            * ========================================================*/
+
+            let myObject = {
+                value: 1,
+                getThis: function () {
+                    console.log(this);
+                },
+                getAnotherThis: () => {
+                    console.log(this);
+                }
+            }
+
+            myObject.value = 10;
+            myObject.getThis(); // this 指向 myObject：{value: 10, getThis: ƒ, getAnotherThis: ƒ}
+            myObject.getAnotherThis(); // this 指向全局对象 Window
+
+            /*
+            * ========================================================
+            *   函数的函数调用模式 -- the function invocation pattern   
+            * ========================================================*/
+
+
+            let getThis = function () {
+                console.log(this);
+            }
+            getThis(); // 指向 window 对象
+
+            let getAnotherThis = () => {
+                console.log(this);
+            }
+            getAnotherThis(); // 指向 window 对象
+
+
+            // 函数中的 this 总是指向函数所在环境的全局对象 window (在浏览器中)
+            myObject.fuc = function () {
+                console.log(this);  // 返回 {value: 10, getThis: ƒ, getAnotherThis: ƒ, fuc: ƒ} ，这个 this 才是指向 myObject
+                let foo = function () {
+                    this.value = this.value * 2;
+                    console.log(this.value); // 返回 NaN
+                    console.log(this);// 返回 window
+                }
+                foo();
+            }
+            myObject.fuc();
+            // 返回 NaN，以上本意是想让myObject 的 value 的值扩大一倍，
+            // 但其实现在的 this 并不是指向myObject, 而是 window
+
+            myObject.antherFuc = function () {
+                let that = this;
+                let foo = function () {
+                    that.value = that.value * 2;
+                    console.log(that.value); // 20
+                    console.log(that); // {value: 20, getThis: ƒ, getAnotherThis: ƒ, fuc: ƒ, antherFuc: ƒ}
+                    console.log(this === that); // false
+                }
+                foo();
+            }
+            myObject.antherFuc();
+
+        }
+
+    </script>
+</body>
+
+</html>
