@@ -48,7 +48,7 @@
             getAnotherThis(); // 指向 window 对象
 
 
-            // 函数中的 this 总是指向函数所在环境的全局对象 window (在浏览器中)
+            // 函数 foo 中的 this 总是指向函数所在环境的全局对象 window (在浏览器中)
             myObject.fuc = function () {
                 console.log(this);  // 返回 {value: 10, getThis: ƒ, getAnotherThis: ƒ, fuc: ƒ} ，这个 this 才是指向 myObject
                 let foo = function () {
@@ -74,8 +74,58 @@
             }
             myObject.antherFuc();
 
-        }
+            /*
+            * ========================================================
+            *   构造函数调用模式 -- the constructor invocation pattern   
+            * ========================================================*/
+            let Quo = function (name) {
+                this.name = name;
+            }
+            Quo.prototype.callname = function () {
+                console.log(this); // Quo {name: "zyh"}
+                console.log(this.name); // zyh
+            };
+            let quo = new Quo("zyh"); // 使用 new 调用函数，则this指向实例（instance）
+            quo.callname();
 
+            /*
+            * ========================================================
+            *   使用Apply调用 -- the apply invocation pattern   
+            * ========================================================*/
+            myObject.antherFuc2 = function () {
+                let foo = function (num) {
+                    this.value = this.value + num;
+                    console.log(this.value);
+                }
+                foo.apply(this, [6]); // apply 方法可以改变函数中 this 的绑定对象
+            }
+            myObject.antherFuc2(); // 26
+
+            /*
+            * ========================================================
+            *   Exception   
+            * ========================================================*/
+            let add = function (num1, num2) {
+                if (typeof num1 !== "number" || typeof num2 !== "number") {
+                    throw {
+                        name: "TypeError",
+                        message: "add need number type arguments"
+                    }
+                }
+                return num1 + num2;
+            }
+            try {
+                add("one");
+            } catch (e) {
+                console.log(e);
+            }
+
+
+
+
+
+
+        }
     </script>
 </body>
 
