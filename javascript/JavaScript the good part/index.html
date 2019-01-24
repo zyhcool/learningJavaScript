@@ -7,8 +7,26 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+<style>
+    div {
+        width: 100px;
+        height: 100px;
+        background-color: aqua;
+        margin: 20px;
+    }
+</style>
 
 <body>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
     <script>
         window.onload = () => {
 
@@ -119,6 +137,70 @@
             } catch (e) {
                 console.log(e);
             }
+
+            /*
+            * ========================================================
+            *   Recursion   
+            * ========================================================*/
+            // Hanoi algorithm
+            let hanoi = function (n, src, mid, des) {
+                if (n > 0) {
+                    hanoi(n - 1, src, des, mid);
+                    console.log(`move ${n} from ${src} to ${des}`);
+                    hanoi(n - 1, mid, src, des);
+                }
+            }
+            hanoi(6, "塔1", "塔2", "塔3");
+
+            /*
+            * ========================================================
+            *   闭包 Closure   
+            * ========================================================*/
+            let divs = document.querySelectorAll("div");
+
+            let closureTest = function (nodes) {
+                var i;
+                for (i = 0; i < nodes.length; i++) {
+                    nodes[i].onclick = function () {
+                        console.log(i);
+                    }
+                }
+            }
+            // closureTest(divs);
+            // closureTest 的问题是 onclick 的函数是绑定着全局变量 i，而不是 for 循环产生的 i；当循环结束 i 的值为 nodes 的个数
+
+            let closureTest2 = function (nodes) {
+                let i;
+                for (i = 0; i < nodes.length; i++) {
+                    nodes[i].onclick = (e) => {
+                        console.log(i);
+                    }
+                }
+            }
+            // closureTest2(divs);
+
+            let closureTest3 = function (nodes) {
+                let i;
+                let clickHandler = function (i) {
+                    return () => {
+                        console.log(i);
+                    }
+                }
+                for (i = 0; i < nodes.length; i++) {
+                    nodes[i].onclick = clickHandler(i);
+                }
+            }
+            // closureTest3(divs);
+
+            let closureTest4 = function (nodes) {
+                for (let i = 0; i < nodes.length; i++) {
+                    nodes[i].onclick = (e) => {
+                        console.log(i);
+                    }
+                }
+            }
+            closureTest4(divs);
+            // let 是js的新语法
 
 
 
