@@ -214,9 +214,9 @@
             * ========================================================
             *   Curry   
             * ========================================================*/
-            let createPow = function(n){
-                return function(x){
-                    console.log(Math.pow(x,n));
+            let createPow = function (n) {
+                return function (x) {
+                    console.log(Math.pow(x, n));
                 }
             }
 
@@ -229,6 +229,50 @@
             pow3(2); // 8
             pow3(3); // 27
             pow3(6); // 216
+
+
+            /*
+            * ========================================================
+            *   Inheritance   继承
+            * ========================================================*/
+            let Animal = function (name) {
+                this.name = name;
+                this.sayName = function () {
+                    console.log(this.name);
+                }
+                console.log(this);
+            }
+            let animal1 = new Animal("animal1");
+            animal1.sayName();
+            console.log(animal1); // Animal {name: "animal1"}
+
+            // prototype vs __proto__
+            console.log(animal1.prototype); // undefined
+            console.log(animal1.__proto__); // {sayName: ƒ, constructor: ƒ}
+
+            console.log(Animal.prototype); // {sayName: ƒ, constructor: ƒ}
+            console.log(Animal.__proto__); // ƒ () { [native code] }
+
+            console.log(animal1.__proto__ === Animal.prototype); // true
+            console.log(Animal.__proto__ === Object.prototype); // false
+            console.log(Animal.__proto__.__proto__ === Object.prototype); // true
+            console.log(Array); // ƒ () { [native code] }
+
+
+            // 构造函数和实例对象 某实例对象是否为某构造函数的实例
+            let isInstance = function (object, initClass) {
+                if (object.__proto__ === null) {
+                    return false;
+                }
+                if (object.__proto__ === initClass.prototype) {
+                    return true;
+                } else {
+                    isInstance(object.__proto__, initClass);
+                }
+            }
+
+            console.log(isInstance(animal1, Animal)); // true
+            console.log(animal1 instanceof Animal); // true
 
 
 
