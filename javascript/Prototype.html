@@ -160,7 +160,7 @@
             console.log(Person1.prototype.isPrototypeOf(zyh));
 
             console.log(Object.getPrototypeOf(zyh));
-            // 原型对象的之不会被重写
+            // 原型对象的值不会被重写
             let cool = new Person1();
             cool.name = "cool";
             console.log("cool'name: " + cool.name);
@@ -242,6 +242,16 @@
                 }
             }
 
+            // Animal.prototype = {
+            //     say: function(){
+            //         console.log(this.sound);
+            //     }
+            // }
+            // Object.defineProperty(Animal.prototype,"contructor",{
+            //     enumerable: false,
+            //     value: Animal,
+            // })
+
             let cat = new Animal("helloKitty", "cat", 12, "meo~");
             console.log(cat);
 
@@ -255,7 +265,7 @@
             let MyArray = function () {
                 let arr = new Array();
                 console.log(arguments);
-                arr.push.apply(arr, arguments);
+                Array.prototype.push.apply(arr, arguments);
                 arr.sum = function () {
                     console.log(this);
                     return this.reduce((s, v) => {
