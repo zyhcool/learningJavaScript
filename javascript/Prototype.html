@@ -316,10 +316,16 @@
             * ========================================================*/
             console.log("------------------组合继承-------");
             console.log("继承Animal");
-            let Dog = function (name, type, weight, sound, legs) {
-                Animal.call(this, name, type, weight, sound); // 实现属性的继承
-                this.legs = legs;
-            };
+            // let Dog = function (name, type, weight, sound, legs) {
+            //     Animal.call(this, name, type, weight, sound); // 实现属性的继承
+            //     this.legs = legs;
+            // };
+
+            let Dog = function(){
+                Animal.call(this,...arguments);
+                this.legs = 9;
+            }
+
             Dog.prototype = new Animal();
             Dog.prototype.constructor = Dog;
             Dog.prototype.countLegs = function () {
@@ -373,6 +379,16 @@
             motor.sayYear();
             let machine = new Machine("machine");
             // machine.sayYear(); // error！！ sayYear()是 Motor 的方法，不是 Machine 的方法
+
+            // what dose function object do?
+            let aa = Machine.prototype;
+            let bb = object(aa);
+            console.log(bb.prototype === aa);
+            console.log(Machine.prototype);
+            console.log(object(Machine.prototype));
+
+            console.log(Motor.__proto__ === Machine);
+            console.log(Machine.__proto__.__proto__ === Object.prototype);
 
 
 
