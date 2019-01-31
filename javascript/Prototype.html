@@ -28,6 +28,7 @@
                     console.log(this.name + " say hi to you!"); // 箭头函数的作用域改变？
                 }
             }
+            console.log(person);
             person.sayHi();
 
             person.name = "haha";
@@ -352,9 +353,9 @@
             }
 
             function object(o) {
-                function F() { };
-                F.prototype = o;
-                return new F();
+                function Fn() { };
+                Fn.prototype = o;
+                return new Fn();
             }
 
             function initPrototype(subtype, supertype) {
@@ -380,16 +381,22 @@
             let machine = new Machine("machine");
             // machine.sayYear(); // error！！ sayYear()是 Motor 的方法，不是 Machine 的方法
 
-            // what dose function object do?
+            // what dose function 'object' do?
             let aa = Machine.prototype;
             let bb = object(aa);
             console.log(bb.prototype === aa);
             console.log(Machine.prototype);
             console.log(object(Machine.prototype));
+            let enheng = object(Machine.prototype);
+            console.log(enheng.__proto__ === Machine.prototype);
 
-            console.log(Motor.__proto__ === Machine);
-            console.log(Machine.__proto__.__proto__ === Object.prototype);
+            console.log(Motor.__proto__ === Machine); // false
+            console.log(Machine.__proto__.__proto__ === Object.prototype); // true
+            console.log(Machine.__proto__ === Function.prototype); // true
 
+            console.log(motor.constructor);
+            console.log(motor.__proto__.constructor);
+            console.log(Motor.prototype.constructor);
 
 
         }    
