@@ -382,6 +382,8 @@
             // machine.sayYear(); // error！！ sayYear()是 Motor 的方法，不是 Machine 的方法
 
             // what dose function 'object' do?
+            // the answer is object(obj) equel to Object.create(obj) which create a Object instance whose prototype is obj
+            
             let aa = Machine.prototype;
             let bb = object(aa);
             console.log(bb.prototype === aa);
