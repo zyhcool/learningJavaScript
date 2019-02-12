@@ -5,82 +5,19 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
     <title>test.html</title>
-    <link rel="stylesheet" href="style.css">
 
     <style>
-        div {
-            box-sizing: border-box;
-        }
-
-        .tongdao {
-            font-family: "Yzy-cartoon";
-            position: absolute;
-            bottom: 50px;
-            left: 50%;
-            margin-left: -304px;
-        }
-
-        .title {
-            width: 203px;
-            height: 58px;
-            background: url("C:/Users/Cool/Desktop/title.png") no-repeat center / 100% 100%;
-            position: absolute;
-            left: 50%;
-            top: -40px;
-            margin-left: -100px;
-        }
-
-        .items {
-            background: url("C:/Users/Cool/Desktop/bg.png") no-repeat center/100% 100%;
-            width: 608px;
-            height: 85px;
-            padding: 19px 13px 13px 17px;
-            display: table;
-            border-collapse: separate;
-            border-spacing: 5px 0;
-        }
-
-        .items>div {
-            width: 53px;
-            height: 53px;
-            text-align: center;
-            background: url("C:/Users/Cool/Desktop/item-bg.png") no-repeat center/100% 100%;
-            font-size: 14px;
-            color: #fff;
-            letter-spacing: 2px;
-            text-shadow:
-                1px 1px #B46903,
-                -1px -1px #B46903,
-                -1px 1px #B46903,
-                1px -1px #B46903,
-                1px 6px 5px #B46903;
-            vertical-align: middle;
-            display: table-cell;
-            padding: 6px;
-        }
-
     </style>
 
 </head>
 
 <body>
-    <div class="tongdao">
-        <div class="title"></div>
-        <div class="items">
-            <div>教室</div>
-            <div>角色室</div>
-            <div>大厅一楼</div>
-            <div>构建室</div>
-            <div>教室</div>
-            <div>构建室</div>
-            <div>大厅一楼</div>
-            <div>构建室</div>
-            <div>教室</div>
-            <div>教室</div>
-        </div>
-    </div>
     <script>
-
+        window.onload = function () {
+            let fso = new ActiveXObject("Scripting.FileSystemObject");
+            let newpath = fso.BuildPath("file:///C:/Users/Cool/AppData/Local/Temp/msohtmlclip1/01/clip_image010.jpg", "51js.txt"); //生成 c:/tmp/51js.txt的路径
+            alert(newpath);
+        }
     </script>
 </body>
 
