@@ -8,6 +8,10 @@
     <title>Document</title>
 </head>
 <style>
+    body {
+        display: flex;
+        flex-flow: wrap;
+    }
     div {
         width: 100px;
         height: 100px;
@@ -29,6 +33,31 @@
     <div></div>
     <script>
         window.onload = () => {
+            /*
+            * ========================================================
+            *   javascript's good part   
+            * ========================================================*/
+            // js -- prototypal inheritance
+
+            // reserved word
+            // blocks in Javascript do not create new scope
+
+            /*
+            * ========================================================
+            *   Reference   
+            * ========================================================*/
+            let someone = { name: "zyh", age: 3 };
+            let anotherone = someone;
+            anotherone.name = "haha";
+            console.log(someone.name); // expect haha
+            // anotherone其实只拿到someone这个对象的引用，而非拿到someone的拷贝，所以someone和anotherone
+            // 都指向{name:"zyh",age:3}
+
+            /*
+            * ========================================================
+            *      
+            * ========================================================*/
+
 
             /*
             * ========================================================
@@ -115,9 +144,22 @@
                     this.value = this.value + num;
                     console.log(this.value);
                 }
-                foo.apply(this, [6]); // apply 方法可以改变函数中 this 的绑定对象
+                foo.apply(this, [6]); // apply 方法可以改变函数中 this 的绑定对象，省去 that 的使用
             }
             myObject.antherFuc2(); // 26
+
+            /*
+            * ========================================================
+            *   Arguments   array-like object
+            * ========================================================*/
+            let fn = function (a, b) {
+                console.log(arguments); // Arguments(2) ["zyh", 20, callee: ƒ, Symbol(Symbol.iterator): ƒ] 
+                // {0:"zyh",1:20}
+                console.log(arguments[0]); // "zyh"
+                console.log(arguments[1]); // 20
+                console.log(arguments.length); // 2
+            }
+            fn("zyh", 20);
 
             /*
             * ========================================================
@@ -154,6 +196,24 @@
 
             /*
             * ========================================================
+            *   Scope   
+            * ========================================================*/
+            if (true) {
+                var va = 1;
+            }
+            console.log(va); // 1
+            if(true){
+                let vb = 3;
+            }
+            // console.log(vb); // error : vb is not defined at window.onload
+
+            for (var i = 0; i <= 5; i++) { }
+            console.log(i); // 6
+            for (let j = 0; j <= 5; j++) { }
+            // console.log(j); // error : j is not defined at window.onload
+
+            /*
+            * ========================================================
             *   闭包 Closure   
             * ========================================================*/
             let divs = document.querySelectorAll("div");
@@ -166,7 +226,7 @@
                     }
                 }
             }
-            // closureTest(divs);
+            // closureTest(divs); // 点击任意一个 div 都 console 出 10；
             // closureTest 的问题是 onclick 的函数是绑定着全局变量 i，而不是 for 循环产生的 i；当循环结束 i 的值为 nodes 的个数
 
             let closureTest2 = function (nodes) {
@@ -177,20 +237,21 @@
                     }
                 }
             }
-            // closureTest2(divs);
+            // closureTest2(divs); // 点击任意一个 div 都 console 出 10；
+            // closureTest2的问题是 let 虽然能声明块级局部变量，但是此时 let 的位置是在函数域中，不是在 for 的block scope 里；
 
             let closureTest3 = function (nodes) {
                 let i;
-                let clickHandler = function (i) {
+                let clickHandler = function (num) {
                     return () => {
-                        console.log(i);
+                        console.log(num);
                     }
                 }
                 for (i = 0; i < nodes.length; i++) {
                     nodes[i].onclick = clickHandler(i);
                 }
             }
-            // closureTest3(divs);
+            // closureTest3(divs); // 正常；console 出相应的索引
 
             let closureTest4 = function (nodes) {
                 for (let i = 0; i < nodes.length; i++) {
@@ -199,8 +260,9 @@
                     }
                 }
             }
-            closureTest4(divs);
+            closureTest4(divs); // 正常；console 出相应的索引
             // let 是js的新语法
+            // onclick 绑定的是对应的索引值（0-9），而不是全局 i；
 
             /*
             * ========================================================
