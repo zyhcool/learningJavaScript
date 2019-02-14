@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Closure</title>
+</head>
+
+<body>
+    <a href="https://mp.weixin.qq.com/s/pFuK77btT75EFh-ve8WjGw" target="_blanc">参考文章</a>
+    <a href="https://medium.com/dailyjs/i-never-understood-javascript-closures-9663703368e8" target="_blanc">原文</a>
+    <script>
+        // 参考文章：https://mp.weixin.qq.com/s/pFuK77btT75EFh-ve8WjGw
+        // 原文：https://medium.com/dailyjs/i-never-understood-javascript-closures-9663703368e8
+
+        window.onload = () => {
+
+            /*
+            * ========================================================
+            *   执行上下文   
+            * ========================================================*/
+
+            let a = 3;
+            function addTwo(x) {
+                let ret = x + 2;
+                return ret;
+            }
+            let b = addTwo(a);
+            console.log(b); // expect: 5
+
+
+            /*
+            * ========================================================
+            *   词法作用域  js的变量查找过程   
+            * ========================================================*/
+
+            let val1 = 2;
+            function multiplyThis(n) {
+                let ret = n * val1;
+                return ret;
+            }
+            let multiplied = multiplyThis(6);
+            console.log('example of scope:', multiplied); // expect: 12
+
+            /*
+            * ========================================================
+            *   返回函数的函数   
+            * ========================================================*/
+            let val = 7;
+            function createAdder() {
+                function addNumbers(a, b) {
+                    let ret = a + b;
+                    return ret;
+                } // addNumbers仅在createAdder本地执行上下文存在
+                return addNumbers;
+            }
+            let adder = createAdder();
+            let sum = adder(val, 8);
+            console.log('example of function returning a function: ', sum); // expect 15
+
+            /*
+            * ========================================================
+            *   闭包   
+            *   - 闭包包含了创建函数时声明的所有变量，就像一个背包一样——函数定
+            *   义附带一个小背包。这个背包保存了创建函数时声明的所有变量
+            *   - 执行函数时首先查看函数定义时的闭包是否包含所需变量
+            * ========================================================*/
+            function createCounter() {
+                let counter = 0;
+                const myFunction = function () {
+                    counter = counter + 1;
+                    return counter;
+                }
+                return myFunction;
+            }
+            const increment = createCounter();
+            const c1 = increment();
+            const c2 = increment();
+            const c3 = increment();
+            console.log('example increment', c1, c2, c3); // expect: 1 2 3
+
+            /*
+            * ========================================================
+            *   不经意间的闭包   
+            * ========================================================*/
+            let c = 4;
+            function addX(x) {
+                return function (n) {
+                    return n + x;
+                }
+            }
+            const addThree = addX(3);
+            let d = addThree(c);
+            console.log('example partial application', d); // expect: 7
+
+
+
+        }
+    </script>
+</body>
+
+</html>

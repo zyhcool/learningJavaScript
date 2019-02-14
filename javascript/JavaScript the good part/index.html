@@ -12,6 +12,7 @@
         display: flex;
         flex-flow: wrap;
     }
+
     div {
         width: 100px;
         height: 100px;
@@ -202,7 +203,7 @@
                 var va = 1;
             }
             console.log(va); // 1
-            if(true){
+            if (true) {
                 let vb = 3;
             }
             // console.log(vb); // error : vb is not defined at window.onload
@@ -218,6 +219,7 @@
             * ========================================================*/
             let divs = document.querySelectorAll("div");
 
+            // 函数只有在调用时才查找变量，
             let closureTest = function (nodes) {
                 var i;
                 for (i = 0; i < nodes.length; i++) {
@@ -227,7 +229,9 @@
                 }
             }
             // closureTest(divs); // 点击任意一个 div 都 console 出 10；
-            // closureTest 的问题是 onclick 的函数是绑定着全局变量 i，而不是 for 循环产生的 i；当循环结束 i 的值为 nodes 的个数
+            // closureTest 的问题是 onclick 的函数是绑定着全局变量 i，而不是 for 循环产生的 i；当循环结束 i 的值为 nodes 的个数；
+            // 用闭包的原理解释，nodes[i].onclick=function(){console.log(i);} 相当于函数声明，函数声明产生函数定义和闭包，其中闭包中存放着变量i，
+            // 当循环结束，i最终为nodes个数（10），此时闭包中的i也为nodes个数（10）；因此点击div时，执行绑定的函数，函数体中的i先在闭包中查找，是10；
 
             let closureTest2 = function (nodes) {
                 let i;
@@ -250,8 +254,18 @@
                 for (i = 0; i < nodes.length; i++) {
                     nodes[i].onclick = clickHandler(i);
                 }
+
+                // for (i = 0; i <= nodes.length; i++) {
+                //     nodes[i].onclick = (function(num) {
+                //         return function(){
+                //             console.log(num);
+                //         };
+                //     })(i);
+                // } // work normally ,but throw error: Uncaught TypeError: Cannot set property 'onclick' of undefined
             }
             // closureTest3(divs); // 正常；console 出相应的索引
+            // 用闭包的原理解释，给nodes绑定点击事件是是直接调用函数，i作为函数参数进入clickHandler的执行上下文，并返回新函数，
+            // 这个新函数的闭包中包含num，而num随着循环进行而改变；所以最后每个node都绑定了不同的函数；
 
             let closureTest4 = function (nodes) {
                 for (let i = 0; i < nodes.length; i++) {
