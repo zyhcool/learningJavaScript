@@ -305,6 +305,37 @@
             pow3(2); // 8
             pow3(3); // 27
             pow3(6); // 216
+            // 这不就是普通闭包的应用？？？
+
+            let greet = function (name, greeting) {
+                console.log(greeting + ", " + name);
+            }
+            greet("ZYH", "Hello"); // expect: Hello, ZYH
+
+            let greetCurried = function (greeting) {
+                return function (name) {
+                    console.log(greeting + ", " + name);
+                };
+            };
+            let greetHello = greetCurried("Hello");
+            greetHello("Heidi"); //"Hello, Heidi"
+            greetHello("Eddie"); //"Hello, Eddie"
+
+            let curryIt = function (uncurriedFn) {
+                let parameters = Array.prototype.slice.call(arguments, 1);
+                console.log(parameters);
+                return function () {
+                    let params = parameters.concat(Array.prototype.slice.call(arguments, 0));
+                    console.log(params);
+                    return uncurriedFn.apply(this, params);
+                }
+            }
+            let greeter = function (greeting, separator, emphasis, name) {
+                console.log(greeting + separator + name + emphasis);
+            };
+            let greetHi = curryIt(greeter, "Hi", ", ", "!");
+            greetHi("zyh");
+
 
 
             /*
@@ -355,7 +386,78 @@
             window.foo = "value";
             foo = "value";
 
+            /*
+            * ========================================================
+            *   完整构建函数和继承   
+            * ========================================================*/
+            let Person = function (name, age) {
+                this.name = name;
+                this.age = age;
+            }
+            Person.prototype.constructor = Person;
+            Person.prototype.sayName = function () {
+                console.log("My name is " + this.name);
+            }
 
+            let xiaoming = new Person("xiao ming", 3);
+            xiaoming.sayName(); // expect: My name is xiao ming
+            console.log(xiaoming); // expect: Person {name: "xiao ming", age: 3}
+            let xiaohong = new Person("xiao hong", 5);
+            xiaohong.sayName(); // expect: My name is xiao hong
+            console.log(xiaohong); // expect: Person {name: "xiao hong", age: 3}
+
+            let MinnanRen = function (name, age, language) {
+                Person.call(this, name, age);
+                this.language = language;
+            }
+            MinnanRen.prototype = Object.create(Person.prototype);
+            MinnanRen.prototype.constructor = MinnanRen;
+            MinnanRen.prototype.sayLanguage = function () {
+                console.log(this.language);
+            }
+            let zyh = new MinnanRen("zyh", 20, "minnanyu");
+            console.log(zyh); // expect: MinnanRen {name: "zyh", age: 20, language: "minnanyu"}
+            zyh.sayLanguage(); // expect: minnanyu
+
+
+            // 判断数据类型 Object
+            let obj = {};
+            console.log(typeof null); // "object"
+            console.log(typeof obj); // "object"
+            console.log(obj instanceof Object); // true
+            console.log(null instanceof Object); // false
+            if (typeof obj === "object") {
+                console.log("obj is an Object or a null");
+            }
+            if (obj && typeof obj === "object") {
+                console.log("obj is an Object");
+            }
+            if (obj instanceof Object) {
+                console.log("obj is an Object");
+            }
+
+            // NaN !== NaN
+            console.log(NaN === NaN); // false
+            console.log(isNaN(NaN)); // true
+
+            /*
+            * ========================================================
+            *   JSON   
+            *   json是种数据格式，后端一般传递json字符串给前端，而前端
+            *   需要解析成json对象（js对象）才可以正常使用
+            * ========================================================*/
+            let jsonStr = '{ "name":"runoob", "alexa":10000, "site":"www.runoob.com" }';
+            console.log(typeof jsonStr);
+            let jsonObj = JSON.parse(jsonStr);
+            console.log(jsonObj);
+            let jsonStrX = JSON.stringify(jsonObj);
+            console.log(jsonStrX);
+
+            // json数组也可被解析
+            myJsonStr = '{"name": "网站","num": 3,"sites": [{ "name": "Google", "info": ["Android", "Google 搜索", "Google 翻译"] },{ "name": "Runoob", "info": ["菜鸟教程", "菜鸟工具", "菜鸟微信"] },{ "name": "Taobao", "info": ["淘宝", "网购"] }]}';
+            console.log(myJsonStr);
+            let myJsonObj = JSON.parse(myJsonStr);
+            console.log(myJsonObj);
 
 
 
