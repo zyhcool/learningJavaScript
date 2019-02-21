@@ -348,6 +348,7 @@
                 this.name = name;
             }
 
+            Machine.prototype.constructor = Machine;
             Machine.prototype.sayName = function () {
                 console.log(`my name is ${this.name}`);
             }
@@ -359,7 +360,8 @@
             }
 
             function initPrototype(subtype, supertype) {
-                let prototype = object(supertype.prototype);
+                // let prototype = object(supertype.prototype);
+                let prototype = Object.create(supertype.prototype); // 现代的 Object.create() 方法可代替道格拉夫写的 object() 方法
                 prototype.constructor = subtype;
                 subtype.prototype = prototype;
             }
@@ -368,7 +370,11 @@
                 Machine.call(this, name);
                 this.year = year;
             };
+
             initPrototype(Motor, Machine);
+            // 等价于：
+            // Motor.prototype = Object.create(Machine.prototype);
+            // Motor.prototype.construtor = Motor;
 
             Motor.prototype.sayYear = function () {
                 console.log(this.year);

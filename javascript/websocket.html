@@ -27,6 +27,9 @@
             ws.onclose = ()=>{
                 console.log("ws close");
             }
+            ws.onmessage = (d,e)=>{
+                console.log(e);
+            }
 
             let btn = document.querySelector(".btn");
             btn.onclick = ()=>{
