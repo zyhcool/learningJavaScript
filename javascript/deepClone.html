@@ -11,7 +11,101 @@
 <body>
     <script>
         window.onload = () => {
-            
+            /*
+            * ========================================================
+            *   基本复制   
+            * ========================================================*/
+            let me = { name: "zyh", age: "24" };
+            let meCloned_1 = me;
+            let meCloned_2 = Object(me);
+            console.log(me === meCloned_1); // expect true
+            console.log(me === meCloned_2); // expect true
+
+            /*
+            * ========================================================
+            *   浅复制   浅复制在栈区开辟新的地址存放新的对象，但是对象的引用类型属性
+            *           仍然实现引用的复制
+            * ========================================================*/
+            // ES6 的 Object.assign() 方法
+
+            let obj = {
+                o: {
+                    count: 9,
+                    name: "haha",
+                },
+                num: 34,
+                str: "xixi",
+                arr: [3, 9],
+            }
+            console.log(obj);
+
+            // let objCloned = deepClone({},obj);
+            let objCloned = Object.assign({}, obj);
+
+            console.log(obj === objCloned); // expect false
+            console.log(obj.o === objCloned.o); // expect true
+            console.log(obj.arr === objCloned.arr); // expect true
+
+            // ES6 Object.assign() 的实现原理如下 deepClone() 函数
+            function deepClone(target, varArgs) {
+                if (target === null) {
+                    throw new TypeError("Cannot convert undefined or null to object");
+                }
+
+                let result = Object(target);
+
+                for (let i = 1; i < arguments.length; i++) {
+                    let nextSource = arguments[i];
+                    if (nextSource !== null) {
+                        for (let nextKey in nextSource) {
+                            if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
+                                result[nextKey] = nextSource[nextKey];
+                            }
+                        }
+                    }
+                }
+                return result;
+            }
+
+            /*
+            * ========================================================
+            *   深复制   
+            * ========================================================*/
+            // ES6   建立在ES6的基础上，引入一些新的接口方法
+            let deepClone3 = function (obj) {
+                if (obj === null) {
+                    throw new TypeError("Cannot convert null to object")
+                }
+                let result = {};
+                let flag = Object.prototype.toString.call(obj);
+                if (flag === "[object Object]") {
+                    for (let key in obj) {
+                        if (Object.prototype.hasOwnProperty.call(obj, key)) {
+                            let keyFlag = Object.prototype.toString.call(obj[key]);
+                            if (["[object Object]", "[object Array]"].includes(keyFlag)) {
+                                result[key] = deepClone3(obj[key]);
+                            } else {
+                                result[key] = obj[key];
+                            }
+                        }
+                    }
+                } else if (flag === "[object Array]") {
+                    result = Array.prototype.map.call(obj, ele => ele);
+                } else {
+                    result = obj;
+                }
+                return result;
+            }
+
+            let objCloned3 = deepClone3(obj);
+
+            console.log(obj === objCloned3); // expect false
+            console.log(obj.o === objCloned3.o); // expect false
+            console.log(obj.arr === objCloned3.arr); // expect false
+            console.log(objCloned3);
+
+
+
         }
     </script>
 </body>
