@@ -110,17 +110,28 @@
             // 返回 NaN，以上本意是想让myObject 的 value 的值扩大一倍，
             // 但其实现在的 this 并不是指向myObject, 而是 window
 
-            myObject.antherFuc = function () {
+            myObject.anotherFuc = function () {
                 let that = this;
                 let foo = function () {
                     that.value = that.value * 2;
                     console.log(that.value); // 20
-                    console.log(that); // {value: 20, getThis: ƒ, getAnotherThis: ƒ, fuc: ƒ, antherFuc: ƒ}
+                    console.log(that); // {value: 20, getThis: ƒ, getAnotherThis: ƒ, fuc: ƒ, anotherFuc: ƒ}
                     console.log(this === that); // false
                 }
                 foo();
             }
-            myObject.antherFuc();
+            myObject.anotherFuc();
+
+            myObject.anotherFuc1 = function () {
+                let foo = () => {
+                    this.value = this.value * 2;
+                    console.log(this.value); // 20
+                    console.log(this); // {value: 40, getThis: ƒ, getAnotherThis: ƒ, fuc: ƒ, anotherFuc: ƒ, …}
+                }
+                foo();
+            }
+            myObject.anotherFuc1();
+            // 使用箭头函数解决，箭头函数的this是固定指向定义时所在的对象
 
             /*
             * ========================================================
@@ -128,26 +139,37 @@
             * ========================================================*/
             let Quo = function (name) {
                 this.name = name;
+                this.callname2 = () => {
+                    console.log(this); // Quo {name: "zyh", callname2: ƒ}
+                    console.log(this.name); // zyh
+                }
             }
             Quo.prototype.callname = function () {
-                console.log(this); // Quo {name: "zyh"}
+                console.log(this); // Quo {name: "zyh", callname2: ƒ}
                 console.log(this.name); // zyh
+            };
+            Quo.prototype.callname1 = () => {
+                console.log(this); // window
+                console.log(this.name); // (空)
             };
             let quo = new Quo("zyh"); // 使用 new 调用函数，则this指向实例（instance）
             quo.callname();
+            quo.callname1();
+            quo.callname2();
 
             /*
             * ========================================================
             *   使用Apply调用 -- the apply invocation pattern   
             * ========================================================*/
-            myObject.antherFuc2 = function () {
+            myObject.anotherFuc2 = function () {
                 let foo = function (num) {
                     this.value = this.value + num;
                     console.log(this.value);
                 }
                 foo.apply(this, [6]); // apply 方法可以改变函数中 this 的绑定对象，省去 that 的使用
             }
-            myObject.antherFuc2(); // 26
+            myObject.anotherFuc2(); // 26
+            myObject.anotherFuc2.apply(this); // NaN, this 指向的是window
 
             /*
             * ========================================================
