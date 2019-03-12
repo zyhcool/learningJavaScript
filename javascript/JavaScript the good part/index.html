@@ -125,13 +125,25 @@
             myObject.anotherFuc1 = function () {
                 let foo = () => {
                     this.value = this.value * 2;
-                    console.log(this.value); // 20
+                    console.log(this.value); // 40
                     console.log(this); // {value: 40, getThis: ƒ, getAnotherThis: ƒ, fuc: ƒ, anotherFuc: ƒ, …}
                 }
                 foo();
             }
             myObject.anotherFuc1();
             // 使用箭头函数解决，箭头函数的this是固定指向定义时所在的对象
+
+            let test = function () {
+                let foo = () => {
+                    this.value = this.value * 2;
+                    console.log(this.value); // NaN
+                    console.log(this); // Window {postMessage: ƒ, blur: ƒ, focus: ƒ, close: ƒ, parent: Window, …}
+                }
+                foo();
+            }
+            test();
+            // 和上面的 myObject.anotherFuc1() 比较，test（）的运行环境是window，而anotherFuc1的运行环境是myObject
+            // 所以函数内部的 this 指向不同
 
             /*
             * ========================================================
@@ -153,8 +165,8 @@
                 console.log(this.name); // (空)
             };
             let quo = new Quo("zyh"); // 使用 new 调用函数，则this指向实例（instance）
-            quo.callname();
-            quo.callname1();
+            quo.callname(); // callname 的运行环境是Quo的实例quo，所以this指向quo（定义环境是window）
+            quo.callname1(); // callname1 的定义环境是window，所以this指向window（运行环境也是quo）
             quo.callname2();
 
             /*
@@ -168,7 +180,7 @@
                 }
                 foo.apply(this, [6]); // apply 方法可以改变函数中 this 的绑定对象，省去 that 的使用
             }
-            myObject.anotherFuc2(); // 26
+            myObject.anotherFuc2(); // 46
             myObject.anotherFuc2.apply(this); // NaN, this 指向的是window
 
             /*
