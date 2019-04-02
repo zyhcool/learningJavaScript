@@ -3,21 +3,37 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>test.html</title>
 
     <style>
+        html {
+            font-size: 20px;
+        }
+        div {
+            width: 20rem;
+            height: 15rem;
+            background-color: skyblue;
+        }
+        @media (min-width: 320px){
+            html {
+                font-size: 20px;
+            }
+        }
+        @media (min-width: 756px){
+            html {
+                font-size: 24px;
+            }
+        }
     </style>
 
 </head>
 
 <body>
-    <video src="blob:https://r.jizy.cn/2e378763-842b-4c9c-b9bc-e507bed9249f"></video>
+    <div>文字文字文字健身房价</div>
     <script>
         window.onload = function () {
-            let fso = new ActiveXObject("Scripting.FileSystemObject");
-            let newpath = fso.BuildPath("file:///C:/Users/Cool/AppData/Local/Temp/msohtmlclip1/01/clip_image010.jpg", "51js.txt"); //生成 c:/tmp/51js.txt的路径
-            alert(newpath);
+            
         }
     </script>
 </body>

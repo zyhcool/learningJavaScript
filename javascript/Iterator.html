@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Iterator</title>
+</head>
+
+<body>
+    <script>
+        window.onload = () => {
+            /*
+            * ========================================================
+            *   用 Generator 函数部署对象的 Iterator 接口   
+            * ========================================================*/
+            
+            let obj = {
+                name: "zyh",
+                age: 8,
+            }
+            obj[Symbol.iterator] = function* () {
+                for(let key in this){
+                    yield {key: this[key]};
+                }
+            }
+            console.log([...obj]);
+            
+        }
+    </script>
+</body>
+
+</html>
