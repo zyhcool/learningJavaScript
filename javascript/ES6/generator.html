@@ -92,9 +92,43 @@
             for (let [key, value] of objectEntry(person)) {
                 console.log({ key, value });
             }
-            
+
             console.log("===================================");
-            
+            let errorgen = function* () {
+                // try {
+                //     yield;
+                // } catch (e) {
+                //     console.log("inner", e);
+                // }
+                yield;
+            }
+            let eg = errorgen();
+            eg.next()
+
+            try {
+                eg.throw("a");
+                eg.throw("b");
+            } catch (e) {
+                console.log("outer", e);
+            }
+
+            let errorgen1 = function* () {
+                try {
+                    let a = yield "jjj";
+                    let b = a.toUpperCase();
+                    yield;
+                } catch (e) {
+                    console.log("inner", e);
+                }
+            }
+
+            let eg1 = errorgen1();
+            eg1.next();
+            try {
+                eg1.next(44);
+            } catch (e) {
+                console.log(e);
+            }
 
         }
     </script>
