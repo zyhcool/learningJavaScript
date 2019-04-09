@@ -130,6 +130,44 @@
                 console.log(e);
             }
 
+            console.log("===================================");
+            function* gen3() {
+                yield 1;
+                yield 2;
+                yield* [3, 4, 5];
+                yield 6;
+                return 7;
+            }
+            let g3 = gen3();
+            for (let en of g3) {
+                console.log(en);
+            } // 1,2,3,4,5,6  for...of 不能遍历 return 状态
+            // console.log(g3.next().value); // 1
+            // console.log(g3.next().value); // 2
+            // console.log(g3.next().value); // 3
+            // console.log(g3.next().value); // 4
+            // console.log(g3.next().value); // 5
+            // console.log(g3.next().value); // 6
+            // console.log(g3.next().value); // 7
+
+            console.log("===================================");
+            let tree = [3, [4, 7, 1], 5, [9, [12, 32], 3]];
+
+            let flatgen = function* (treeData) {
+                if (Array.isArray(treeData)) {
+                    for (let i = 0; i < treeData.length; i++) {
+                        yield* flatgen(treeData[i]);
+                    }
+                } else {
+                    yield treeData;
+                }
+            }
+
+            let fg = flatgen(tree);
+            for (let d of fg) {
+                console.log(d);
+            }
+
         }
     </script>
 </body>
