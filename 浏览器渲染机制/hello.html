@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>浏览器渲染机制</title>
+</head>
+
+<body>
+    <div>hahahah</div>
+    <div>hahahah</div>
+    <div>hahahah</div>
+    <div>hahahah</div>
+    <script>
+        console.log("1111");
+        // window.addEventListener("load", function () {
+        //     console.log("from html");
+        //     console.log("load");
+        // })
+        document.addEventListener("DOMContentLoaded", function () {
+            console.log("DOMContentLoaded");
+        })
+    </script>
+    <script defer src="./hello.js"></script>
+</body>
+
+</html>
