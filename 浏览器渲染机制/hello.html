@@ -14,16 +14,24 @@
     <div>hahahah</div>
     <div>hahahah</div>
     <script>
-        console.log("1111");
-        // window.addEventListener("load", function () {
-        //     console.log("from html");
-        //     console.log("load");
-        // })
-        document.addEventListener("DOMContentLoaded", function () {
-            console.log("DOMContentLoaded");
-        })
+        window.customElements.define("hello-world", class extends HTMLElement {
+            constructor() {
+                super();
+            }
+            connectedCallback() {
+                console.log("hello wolrd is mounted");
+            }
+            render() {
+                return (
+                    <div><p>Hello World</p></div>
+                );
+            }
+        });
+        let HelloWorld = customElements.get("hello-world");
+        let el = new HelloWorld();
+        document.body.appendChild(el);
     </script>
-    <script defer src="./hello.js"></script>
+    <!-- <script defer src="./hello.js"></script> -->
 </body>
 
 </html>
