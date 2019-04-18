@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>test.html</title>
+</head>
+
+<body>
+    <script>
+        /*
+        * ========================================================
+        *   异步编程 -- 回调函数   
+        * ========================================================*/
+
+        let f1 = function () {
+            for (let i = 0; i < 2 * (10 ** 9); i++) { }
+            console.log("f1");
+        }
+        let f2 = function () {
+            console.log("f2");
+        }
+        // f1();
+        // f2();
+
+        let f1_async = function () {
+            setTimeout(() => {
+                for (let i = 0; i < 2 * (10 ** 9); i++) { }
+                console.log("f1");
+            }, 0);
+        }
+        let f2_async = function () {
+            console.log("f2");
+        }
+        // f1_async();
+        // f2_async();
+
+        /*
+        * ========================================================
+        *   回调函数 -- Promise   
+        * ========================================================*/
+
+        let fp1 = function () {
+            return new Promise((resolve, reject) => {
+                for (let i = 0; i < 2 * (10 ** 9); i++) { }
+                resolve("fp1");
+            })
+        }
+
+        let fp2 = function () {
+            console.log("fp2");
+        }
+        fp1().then((value) => {
+            console.log(value);
+        })
+        fp2();
+
+    </script>
+</body>
+
+</html>

@@ -4,37 +4,25 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="./test.js"></script>
     <title>test.html</title>
-
-    <style>
-        html {
-            font-size: 20px;
-        }
-        div {
-            width: 20rem;
-            height: 15rem;
-            background-color: skyblue;
-        }
-        @media (min-width: 320px){
-            html {
-                font-size: 20px;
-            }
-        }
-        @media (min-width: 756px){
-            html {
-                font-size: 24px;
-            }
-        }
-    </style>
-
 </head>
 
 <body>
-    <div>文字文字文字健身房价</div>
     <script>
-        window.onload = function () {
-            
+        let f1 = function () {
+            setTimeout(() => {
+                for (let i = 0; i < 2 * (10 ** 9); i++) { }
+                console.log("f1");
+            }, 0);
         }
+        let f2 = function () {
+            console.log("f2");
+        }
+        f1();
+        f2();
+
+
     </script>
 </body>
 
