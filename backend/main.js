@@ -10,6 +10,7 @@ service(router);
 app.use(async (ctx, next) => {
     ctx.set("Access-Control-Allow-Origin", "*");
     ctx.set("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, HEAD, OPTIONS");
+    ctx.set("Cache-Control","max-age=60");
     await next();
     console.log(`${ctx.method} ${ctx.path} ${ctx.status} `);
 })

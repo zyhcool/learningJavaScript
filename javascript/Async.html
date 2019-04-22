@@ -4,6 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="./test.js"></script>
     <title>test.html</title>
 </head>
 
@@ -192,7 +193,7 @@
         function request_promise_async() {
             return new Promise((resolve, reject) => {
                 setTimeout(() => {
-                    // for (let i = 0; i < 2 * (10 ** 9); i++) { }
+                    for (let i = 0; i < 2 * (10 ** 9); i++) { }
                     let formData = new FormData();
                     formData.append("name", "zyh");
 
@@ -214,6 +215,7 @@
         otherFunc();
         // expect output: "otherFunc", {"message":"创建成功","data":"helloworld, zyh","code":0}
         // 马上输出 "otherFunc"，延迟几秒后输出 {"message":"创建成功",...
+
 
 
     </script>
