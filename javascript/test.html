@@ -11,17 +11,24 @@
 <body>
     <img width="200px" height="200px" src="https://cdn.youzhiyou.net/prod/logo_2.png" />
     <script>
-        let f1 = function () {
-            setTimeout(() => {
-                for (let i = 0; i < 2 * (10 ** 9); i++) { }
-                console.log("f1");
-            }, 0);
+        // let str = `<img src="http://wximg.233.com/attached/image/20160815/20160815162505_0878.png" height="14" width="444" /><div></div><img />`
+        let str = `<img src="https://cdn.youzhiyou.net/prod/logo_2.png" height="14" width="444" /><div></div><img />`
+
+        let newStr = str.replace(/src=".+?"/gi, changeImgs);
+        console.log(newStr);
+
+        function changeImgs(url) {
+            let url1 = url.split('"')[1];
+            let newurl = `src="${url1 + url1}"`;
+            return newurl;
         }
-        let f2 = function () {
-            console.log("f2");
-        }
-        f1();
-        f2();
+
+
+        最近工作上碰到需求，要将网上爬取的试卷题目中的图片转存到自己公司的服务器，我打算在前端获取图片数据后再上传到服务器，
+        却发现对方的图片资源不允许跨域请求，所以需要在后台请求数据并传到服务器。
+        我使用的是axios做请求模块，下载图片到本地电脑，再将图片上传到阿里云
+
+
 
 
     </script>
