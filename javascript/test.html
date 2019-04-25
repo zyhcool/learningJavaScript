@@ -6,29 +6,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="./test.js"></script>
     <title>test.html</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: skyblue;
+        }
+    </style>
 </head>
 
 <body>
-    <img width="200px" height="200px" src="https://cdn.youzhiyou.net/prod/logo_2.png" />
+    <div id="droptarget" ondragover="dragover(event)"></div>
+    <!-- <img width="200px" height="200px" src="https://cdn.youzhiyou.net/prod/logo_2.png" /> -->
     <script>
         // let str = `<img src="http://wximg.233.com/attached/image/20160815/20160815162505_0878.png" height="14" width="444" /><div></div><img />`
-        let str = `<img src="https://cdn.youzhiyou.net/prod/logo_2.png" height="14" width="444" /><div></div><img />`
+        // let str = `<img src="https://cdn.youzhiyou.net/prod/logo_2.png" height="14" width="444" /><div></div><img />`
 
-        let newStr = str.replace(/src=".+?"/gi, changeImgs);
-        console.log(newStr);
+        var droptarget = document.getElementById('droptarget');
 
-        function changeImgs(url) {
-            let url1 = url.split('"')[1];
-            let newurl = `src="${url1 + url1}"`;
-            return newurl;
+        droptarget.ondrop = function (e) {
+            alert(e.dataTransfer.files[0]);
+            var files = e.dataTransfer.files;
+            for (var i = 0; i < files.length; i++) {
+                var type = files[i].type;
+                if (type.substring(0, 6) !== 'image/')
+                    continue;
+                var img = document.createElement('img');
+                img.src = URL.createObjectURL(files[i]);
+                img.onload = function () {
+                    this.width = 100;
+                    document.body.appendChild(this);
+                    URL.revokeObjectURL(this.src);
+                }
+            }
         }
-
-
-        最近工作上碰到需求，要将网上爬取的试卷题目中的图片转存到自己公司的服务器，我打算在前端获取图片数据后再上传到服务器，
-        却发现对方的图片资源不允许跨域请求，所以需要在后台请求数据并传到服务器。
-        我使用的是axios做请求模块，下载图片到本地电脑，再将图片上传到阿里云
-
-
+        function dragover(e){
+            e.preventDefault();
+        }
 
 
     </script>

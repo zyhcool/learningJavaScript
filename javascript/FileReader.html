@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>FileReader</title>
+</head>
+
+<body>
+    <label for="myinput">上传文件</label>
+    <input type="file" id="myinput" multiple /></br>
+
+    <label for="imginput">上传单个图片</label>
+    <input type="file" id="imginput" /></br>
+
+    <label for="multiImginput">上传多个图片</label>
+    <input type="file" id="multiImginput" multiple /></br>
+
+    <script>
+        let myinput = document.querySelector("#myinput");
+        myinput.addEventListener("change", fileChange);
+
+        function fileChange(e) {
+            let files = e.target.files;
+            console.log(files);
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                console.log(e.target.result);
+            }
+            // reader.readAsBinaryString(files[0]);
+            // reader.readAsArrayBuffer(files[0]);
+            reader.readAsDataURL(files[0]);
+            // reader.readAsText(files[0]);
+        }
+
+
+        let imginput = document.querySelector("#imginput");
+        imginput.addEventListener("change", imgchange);
+        function imgchange(e) {
+            let files = e.target.files;
+            let reader = new FileReader();
+            let img = document.createElement("img");
+            reader.onload = (e) => {
+                let result = e.target.result;
+                img.src = result;
+                img.width = 100;
+                document.body.appendChild(img);
+            }
+            reader.readAsDataURL(files[0]);
+        }
+
+
+
+
+        let multiImginput = document.querySelector("#multiImginput");
+        multiImginput.addEventListener("change", multiImgchange);
+        function multiImgchange(e) {
+            let files = e.target.files;
+            [...files].forEach((file) => {
+                readfile(file);
+            })
+        }
+        function readfile(file) {
+            let reader = new FileReader();
+            let img = document.createElement("img");
+            reader.onload = (e) => {
+                let result = e.target.result;
+                img.src = result;
+                img.width = 100;
+                document.body.appendChild(img);
+            }
+            reader.readAsDataURL(file);
+        }
+
+    </script>
+</body>
+
+</html>
