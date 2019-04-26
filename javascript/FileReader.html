@@ -18,6 +18,9 @@
     <label for="multiImginput">上传多个图片</label>
     <input type="file" id="multiImginput" multiple /></br>
 
+    <label for="uploadImg">上传图片资源到服务器</label>
+    <input type="file" id="uploadImg" multiple /></br>
+
     <script>
         let myinput = document.querySelector("#myinput");
         myinput.addEventListener("change", fileChange);
@@ -73,6 +76,27 @@
             }
             reader.readAsDataURL(file);
         }
+
+
+        let uploadImg = document.querySelector("#uploadImg");
+        uploadImg.addEventListener("change", uploadImgchange);
+        function uploadImgchange(e) {
+            let file = e.target.files[0];
+            console.log(file);
+            let formdata = new FormData();
+            formdata.append("file", file);
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://127.0.0.1:4001/files");
+            // xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            // xhr.setRequestHeader("Content-Type", "multipart/form-data");
+            xhr.onload = (e) => {
+                if (this.status === 200 && this.readyState === 4) {
+                    console.log(this.response);
+                }
+            }
+            xhr.send(formdata);
+        }
+
 
     </script>
 </body>

@@ -71,13 +71,14 @@
                 // let message = new FormData(form);
                 console.log(message);
                 let xhr = new XMLHttpRequest();
-                xhr.open("POST", "http://localhost:4000/api/message", true);
+                xhr.open("POST", "http://localhost:4001/files", true);
                 xhr.onload = function (e) {
                     if (this.status == 200 || this.status == 304) {
                         alert(this.responseText);
                     }
                 }
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                // xhr.setRequestHeader("Content-Type", "multipart/form-data");
                 // xhr.send("name=zyh&email=121212121@223.com&tel=192938238&content=" + encodeURIComponent('你好你好') + "&status=" + encodeURIComponent('未处理'));
                 xhr.send(message);
                 e.preventDefault();
