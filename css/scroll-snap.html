@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Scroll-Snap</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            scroll-snap-type: mandatory;
+            scroll-snap-destination: 0% 100%;
+            scroll-snap-points-y: repeat(100vh);
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            overflow-y: auto;
+            /* 关键 height */
+            height: 100vh;
+
+        }
+
+        .container .item {
+            height: 100vh;
+            scroll-snap-align: start;
+        }
+
+        .container :nth-child(1) {
+            background-color: skyblue;
+        }
+
+        .container :nth-child(2) {
+            background-color: yellowgreen;
+        }
+
+        .container :nth-child(3) {
+            background-color: slateblue;
+        }
+
+        .container :nth-child(4) {
+            background-color: palegreen;
+        }
+
+        .container :nth-child(5) {
+            background-color: hotpink;
+        }
+
+        .container :nth-child(6) {
+            background-color: aquamarine
+        }
+
+        div.remark {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            padding: 12px;
+            color: rgba(0, 0, 0, 0.65)
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+    </div>
+    <div class="remark">
+        <strong>chrome</strong> 支持较差</br>
+        <strong>firefox</strong> 支持较好
+    </div>
+    <script>
+    // chrome 支持较差
+    // firefox 支持较好
+    </script>
+</body>
+
+</html>
