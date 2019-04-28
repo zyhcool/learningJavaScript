@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SetTimeout 和 SetInterval</title>
+</head>
+
+<body>
+    <script>
+        let i = 0;
+        // setInterval(() => {
+        //     if (i === 3) {
+        //         for (let j = 0; j < 2 * (10 ** 9); j++) { };
+        //     }
+        //     console.log(i);
+        //     i++;
+        // }, 1000);
+        // 结果：每间隔1秒打印出 0,1,2 后，又延迟几秒后，3,4,5几乎同时按顺序打印出来
+        // setInterval 的 timeout 是指每次执行函数开始的时间间隔
+
+        let interval = function (timeout) {
+            setTimeout(() => {
+                if (i === 3) {
+                    for (let j = 0; j < 2 * (10 ** 9); j++) { };
+                }
+                console.log(i);
+                i++;
+                interval(timeout);
+            }, timeout)
+        }
+        interval(1000);
+        // 结果：每间隔1秒打印出 0,1,2 后，延迟几秒，3,4,5 也每间隔1秒打印出来
+        // setTimeout 的 timeout 是指上一次执行函数结束和下一次执行函数开始的时间间隔
+
+    </script>
+</body>
+
+</html>
