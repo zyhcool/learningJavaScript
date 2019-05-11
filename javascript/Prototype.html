@@ -318,6 +318,7 @@
             instance.sayName();
             let superTypeInstance = new SuperType();
             superTypeInstance.sayName();
+            console.log(subTypeInstance);
 
             /*
             * ========================================================
@@ -344,6 +345,8 @@
             console.log("dog: ");
             console.log(dog);
             dog.countLegs();
+            console.log(dog.__proto__ === Dog.prototype); // true
+            console.log(dog.__proto__.__proto__ === Animal.prototype); // true
 
 
             /*
@@ -362,20 +365,21 @@
             }
 
             function object(o) {
-                function Fn() { };
-                Fn.prototype = o;
-                return new Fn();
+                function F() { };
+                F.prototype = o;
+                return new F();
             }
 
             function initPrototype(subtype, supertype) {
                 // let prototype = object(supertype.prototype);
                 let prototype = Object.create(supertype.prototype); // 现代的 Object.create() 方法可代替道格拉夫写的 object() 方法
+                // 这里的 Object.create(supertype.prototype) 实际上生成了 supertype 的实例（该实例只有 supertype 的原型的方法，没有属性）
                 prototype.constructor = subtype;
                 subtype.prototype = prototype;
             }
 
             function Motor(name, year) {
-                Machine.call(this, name);
+                Machine.call(this, name); // 继承 Machine 的属性
                 this.year = year;
             };
 
@@ -400,13 +404,14 @@
 
             let aa = Machine.prototype;
             let bb = object(aa);
-            console.log(bb.prototype === aa);
+            console.log(bb.prototype === aa); // false
             console.log(Machine.prototype);
             console.log(object(Machine.prototype));
             let enheng = object(Machine.prototype);
-            console.log(enheng.__proto__ === Machine.prototype);
+            console.log(enheng.__proto__ === Machine.prototype); // true 此时 enheng 是 Machine 的实例
 
             console.log(Motor.__proto__ === Machine); // false
+            console.log(Motor.__proto__ === Function.prototype); // true
             console.log(Machine.__proto__.__proto__ === Object.prototype); // true
             console.log(Machine.__proto__ === Function.prototype); // true
 
