@@ -19,29 +19,23 @@
     <div id="droptarget" ondragover="dragover(event)"></div>
     <!-- <img width="200px" height="200px" src="https://cdn.youzhiyou.net/prod/logo_2.png" /> -->
     <script>
-        // let str = `<img src="http://wximg.233.com/attached/image/20160815/20160815162505_0878.png" height="14" width="444" /><div></div><img />`
-        // let str = `<img src="https://cdn.youzhiyou.net/prod/logo_2.png" height="14" width="444" /><div></div><img />`
 
-        var droptarget = document.getElementById('droptarget');
-
-        droptarget.ondrop = function (e) {
-            alert(e.dataTransfer.files[0]);
-            var files = e.dataTransfer.files;
-            for (var i = 0; i < files.length; i++) {
-                var type = files[i].type;
-                if (type.substring(0, 6) !== 'image/')
-                    continue;
-                var img = document.createElement('img');
-                img.src = URL.createObjectURL(files[i]);
-                img.onload = function () {
-                    this.width = 100;
-                    document.body.appendChild(this);
-                    URL.revokeObjectURL(this.src);
-                }
+        function Person2() { };
+        console.log(Person2.prototype.constructor);
+        Person2.prototype = {
+            name: "haha",
+            age: 33,
+            job: "developer",
+            sayHi: function () {
+                console.log(this.name + " say hi! ");
             }
         }
-        function dragover(e){
-            e.preventDefault();
+        function Person1() { };
+        console.log(Person1.prototype.constructor);
+        Person1.prototype.name = "zyh";
+        Person1.prototype.age = 19;
+        Person1.prototype.sayName = function () {
+            console.log("My name is " + this.name);
         }
 
 

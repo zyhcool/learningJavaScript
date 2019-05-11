@@ -22,12 +22,13 @@
                 name: "zyh",
                 age: 19,
                 // sayHi: ()=>{
-                //     console.log(this.name + "say hi to you!");
+                //     console.log(this.name + "say hi to you!"); // expect undefined say hi to you
                 // },
                 sayHi: function () {
-                    console.log(this.name + " say hi to you!"); // 箭头函数的作用域改变？
+                    console.log(this.name + " say hi to you!"); // expect zyh say hi to you ，function 函数的 this 指向调用时的环境变量
                 }
             }
+            // 箭头函数中的 this 指向函数定义时的环境变量，这里指向 window，而不是 Person 的实例 person；
             console.log(person);
             person.sayHi();
 
@@ -110,7 +111,7 @@
             *   创建对象之 -- 工厂模式   (使用函数封装创建对象的过程而已，跟上例创建对象本质一样)
             * ========================================================*/
             console.log("=============工厂模式======");
-            let createPerson = function (name, age) {
+            function createPerson(name, age) {
                 let person = new Object();
                 person = {
                     name,
@@ -149,6 +150,8 @@
             console.log("=============原型模式======");
             console.log(Person.prototype); // 结果为 Person.prototype == { constructor: Person(name,age) }
             function Person1() { };
+            console.log("第一次打印 Person1.prototype.constructor：");
+            console.log(Person1.prototype.constructor);
             Person1.prototype.name = "zyh";
             Person1.prototype.age = 19;
             Person1.prototype.sayName = function () {
@@ -158,9 +161,10 @@
             let zyh = new Person1();
             zyh.name = "cool";
             zyh.sayName();
-            console.log(Person1.prototype.isPrototypeOf(zyh));
+            console.log(Person1.prototype.isPrototypeOf(zyh)); // true
 
             console.log(Object.getPrototypeOf(zyh));
+            console.log(Person1.prototype); // 所以 zyh 的原型就是 Person1.prototype
             // 原型对象的值不会被重写
             let cool = new Person1();
             cool.name = "cool";
@@ -187,7 +191,8 @@
             console.log("zyh's keys: " + Object.getOwnPropertyNames(zyh));
 
             // 
-            let Person2 = function () { };
+            function Person2() { };
+            console.log("第一次打印 Person2.prototype.constructor： ", Person2.prototype.constructor);
             Person2.prototype = {
                 name: "haha",
                 age: 33,
@@ -196,16 +201,17 @@
                     console.log(this.name + " say hi! ");
                 }
             }
-            console.log("Person1.prototype.constructor: ");
+            console.log("第二次打印 Person1.prototype.constructor：");
             console.log(Person1.prototype.constructor);
-            console.log("Person2.prototype.constructor: ");
-            console.log(Person2.prototype.constructor);
+            console.log("第二次打印 Person2.prototype.constructor： ", Person2.prototype.constructor);
+            console.log(Person2.prototype.constructor); // Person2.prototype.constructor 发生了变化，说明上面指定 Person2 原型时，将原型的constructor重写了
             let person2 = new Person2();
             console.log("person2.constructor: ");
             console.log(person2.constructor);
+            console.log(Person2.prototype.constructor === person2.constructor);
 
             // 原型模式的构造方法
-            let Test = function () { }; //   <<====== 构造函数
+            function Test() { }; //   <<====== 构造函数
             Test.prototype = { //   <<===== 原型（对象）
                 name: "",
                 type: "",
@@ -229,13 +235,14 @@
             * ========================================================
             *   构造函数模式用来构造实例属性，原型模式用来定义共享方法和属性   
             * ========================================================*/
-            let Animal = function (name, type, weight, sound) {
+            function Animal(name, type, weight, sound) {
                 this.name = name;
                 this.type = type;
                 this.weight = weight;
                 this.sound = sound;
             }
 
+            // 法1
             Animal.prototype = {
                 constructor: Animal,
                 say: function () {
@@ -243,6 +250,7 @@
                 }
             }
 
+            // 法2
             // Animal.prototype = {
             //     say: function(){
             //         console.log(this.sound);
@@ -253,9 +261,9 @@
             //     value: Animal,
             // })
 
+            // 法1 法2 结果相同
             let cat = new Animal("helloKitty", "cat", 12, "meo~");
             console.log(cat);
-
             console.log(Animal.prototype);
 
             /*
@@ -263,7 +271,7 @@
             *   寄生构造函数模式   
             * ========================================================*/
             // 使用该模式为数组操作添加新的方法
-            let MyArray = function () {
+            function MyArray() {
                 let arr = new Array();
                 console.log(arguments);
                 Array.prototype.push.apply(arr, arguments);
@@ -292,7 +300,7 @@
                 }
             }
 
-            let SubType = function () {
+            function SubType() {
                 this.name = "subType";
             }
 
@@ -304,7 +312,7 @@
 
             console.log("重写原型方法和属性");
             SubType.prototype.sayName = function () {
-                console.log("I've been rewrited method!");
+                console.log("I'm rewrited method! SubType's sayName");
             }
             let instance = new SubType();
             instance.sayName();
@@ -322,8 +330,8 @@
             //     this.legs = legs;
             // };
 
-            let Dog = function(){
-                Animal.call(this,...arguments);
+            function Dog() {
+                Animal.call(this, ...arguments);
                 this.legs = 9;
             }
 
@@ -344,7 +352,7 @@
             * ========================================================*/
             console.log("------------------寄生式组合继承--------");
 
-            let Machine = function (name) {
+            function Machine(name) {
                 this.name = name;
             }
 
@@ -366,7 +374,7 @@
                 subtype.prototype = prototype;
             }
 
-            let Motor = function (name, year) {
+            function Motor(name, year) {
                 Machine.call(this, name);
                 this.year = year;
             };
@@ -389,7 +397,7 @@
 
             // what dose function 'object' do?
             // the answer is object(obj) equel to Object.create(obj) which create a Object instance whose prototype is obj
-            
+
             let aa = Machine.prototype;
             let bb = object(aa);
             console.log(bb.prototype === aa);
