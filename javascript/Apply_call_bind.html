@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Apply_Call_Bind</title>
+</head>
+
+<body>
+    <script>
+        const arr = [3, 6, 3, 7, 8, 6, 5, 34];
+        console.log(Math.max(...arr));
+        console.log(Math.max.apply(null, arr));
+
+        let arrLike = {
+            0: 2,
+            1: 3,
+            2: 5,
+            3: 89,
+            length: 4,
+        }
+
+        console.log(Array.prototype.slice.apply(arrLike,[0,1]));
+        console.log(Array.prototype.slice.call(arrLike,0,1));
+    </script>
+</body>
+
+</html>

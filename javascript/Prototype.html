@@ -418,6 +418,11 @@
             console.log(motor.constructor);
             console.log(motor.__proto__.constructor);
             console.log(Motor.prototype.constructor);
+            // motor.constructor/motor.__proto__.constructor/Motor.prototype.constructor 相同
+
+            console.log(Motor.prototype.__proto__ === Machine.prototype) // true
+            console.log(Motor.prototype.__proto__);
+            console.log(Motor.prototype);
 
         }    
     </script>
