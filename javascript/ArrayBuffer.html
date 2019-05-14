@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ArrayBuffer & TypedArray</title>
+</head>
+
+<body>
+    <script>
+        const buffer = new ArrayBuffer(32);
+        console.log(buffer);
+        console.log(buffer.byteLength); // 32
+
+        const x1 = new Int32Array(buffer);
+        x1[0] = 1;
+        console.log(x1.length)
+        console.log(x1.byteLength)
+        const x2 = new Uint16Array(buffer);
+        x1[0] = 2;
+        console.log(x1[0]);
+    </script>
+</body>
+
+</html>
