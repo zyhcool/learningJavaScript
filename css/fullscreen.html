@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fullscreen</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            height: 100vh;
+        }
+
+        .container .item {
+            height: 0;
+            transition-duration: 0.5s;
+            transition-timing-function: ease-out;
+        }
+
+        .container :nth-child(1) {
+            background-color: skyblue;
+        }
+
+        .container :nth-child(2) {
+            background-color: yellowgreen;
+        }
+
+        .container :nth-child(3) {
+            background-color: slateblue;
+        }
+
+        .container :nth-child(4) {
+            background-color: palegreen;
+        }
+
+        .container :nth-child(5) {
+            background-color: hotpink;
+        }
+
+        .container :nth-child(6) {
+            background-color: aquamarine
+        }
+
+        .container .item.current {
+            height: 100vh;
+        }
+
+        .tabs {
+            position: fixed;
+            top: 40%;
+            right: 8px;
+        }
+
+        .tabs div {
+            cursor: pointer;
+            color: rgba(0, 0, 0, 0.4);
+            margin: 4px;
+        }
+
+        .tabs div.current {
+            color: rgba(0, 0, 0, 0.8);
+            border-bottom: 1px solid
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div data-title="1111111" class="item current"></div>
+        <div data-title="2222222" class="item"></div>
+        <div data-title="3333333" class="item"></div>
+        <div data-title="4444444" class="item"></div>
+        <div data-title="5555555" class="item"></div>
+        <div data-title="6666666" class="item"></div>
+    </div>
+    <div class="tabs"></div>
+    <script>
+        const container = document.querySelector('.container');
+
+        let items = document.querySelectorAll(".container .item");
+        let tabs = [];
+        let fragment = document.createDocumentFragment();
+        items.forEach((item, i) => {
+            let tab = document.createElement("div");
+            if (i === 0) {
+                tab.classList.add("current");
+            }
+            tab.innerHTML = item.dataset.title;
+            tab.addEventListener("click", debounce(() => {
+                goto(i);
+            }, 200));
+            tabs.push(tab);
+            fragment.appendChild(tab);
+        })
+        let tabWrapper = document.querySelector(".tabs");
+        tabWrapper.appendChild(fragment);
+
+
+
+        container.addEventListener("mousewheel", debounce(handleMouseWheel, 200));
+
+        function handleMouseWheel(e) {
+            e = e || window.event;
+            e.preventDefault();
+            let index = getCurrentIndex();
+            if (e.wheelDelta < 0 && index < items.length - 1) {
+                index++;
+            } else if (e.wheelDelta > 0 && index > 0) {
+                index--;
+            } else {
+                return;
+            }
+            goto(index);
+            changeCurrentIndex(index);
+        }
+
+        function changeCurrentIndex(i) {
+            container.dataset.currentIndex = i;
+        }
+
+        function getCurrentIndex() {
+            return container.dataset.currentIndex;
+        }
+
+        function goto(index) {
+            const currentIndex = getCurrentIndex();
+            items[currentIndex].classList.remove("current");
+            tabs[currentIndex].classList.remove("current");
+            items[index].classList.add("current");
+            tabs[index].classList.add("current");
+            changeCurrentIndex(index);
+        }
+
+        // 防抖
+        function debounce(func, wait) {
+            let timeout;
+            return function () {
+                let context = this;
+                let args = arguments;
+                clearTimeout(timeout);
+                timeout = setTimeout(() => {
+                    func.apply(context, args);
+                }, wait);
+            };
+        };
+
+        // 节流
+        function throttle(fn, threshhold = 200) {
+            let timeout;
+            let start = new Date();
+            return function () {
+                let context = this;
+                let args = arguments;
+                let curr = new Date();
+                clearTimeout(timeout);
+                if (curr - start >= threshhold) {
+                    fn.apply(context, args)
+                    start = curr
+                } else {
+                    timeout = setTimeout(function () {
+                        fn.apply(context, args)
+                    }, threshhold);
+                }
+            }
+        }
+
+
+
+        window.onload = () => changeCurrentIndex(0);
+
+
+
+    </script>
+</body>
+
+</html>

@@ -79,8 +79,31 @@
         <strong>firefox</strong> 支持较好
     </div>
     <script>
-    // chrome 支持较差
-    // firefox 支持较好
+        // chrome 支持较差
+        // firefox 支持较好
+        function supportCss(style) {
+            let prefix = ["webkit", "Moz", "ms", "o", ""];
+            let humpString = [];
+            let htmlStyle = document.documentElement.style;
+            let _toHumb = function (string) {
+                return string.replace(/-(\w)/g, function ($0, $1) {
+                    return $1.toUpperCase();
+                });
+            };
+            humpString = prefix.map((pre) => {
+                if (pre) {
+                    return _toHumb(pre + "-" + style);
+                } else {
+                    return _toHumb(style);
+                }
+            })
+
+            return humpString.some((hs) => {
+                return hs in htmlStyle;
+            })
+        }
+
+        console.log(supportCss3("scroll-snap-type"));
     </script>
 </body>
 
