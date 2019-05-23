@@ -2,15 +2,17 @@ let Person = function(){
     // return Person.prototype.init();
 }
 
+Person.init = function(name){
+    let instance = new Person();
+    instance.name = name;
+    return instance;
+}
+
 Person.prototype = {
-    init: function(name){
-        this.name = name ? name : this.name;
-        return this;
-    },
     name: "asa",
 }
 
-let person = new Person().init("hh");
+let person = Person.init("hahahehe");
 // person.init();
 console.log(person);
-console.log(person.name);
+console.log(person instanceof Person); // true

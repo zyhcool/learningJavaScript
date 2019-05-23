@@ -424,6 +424,45 @@
             console.log(Motor.prototype.__proto__);
             console.log(Motor.prototype);
 
+            /*
+            * ========================================================
+            *   new   模拟 new 操作符的原理
+            * ========================================================*/
+            let createInstance = function (constructor) {
+                let obj = {};
+                let args = Array.from(arguments);
+                console.log(args);
+                constructor = args.shift();
+                console.log(args);
+                obj.__proto__ = constructor.prototype;
+                constructor.apply(obj, args);
+                return obj;
+            }
+
+            let machineinstance = createInstance(Machine, 'zyh')
+
+            console.log(machineinstance.name);
+
+            /*
+            * ========================================================
+            *   instanceof   模拟 instanceof 操作符的原理
+            * ========================================================*/
+            let isInstanceof = function (instance, constructor) {
+                if (instance.__proto__ === constructor.prototype) {
+                    return true;
+                } else {
+                    if (instance.__proto__ === null) {
+                        return false;
+                    } else {
+                        return isInstanceof(instance.__proto__, constructor);
+                    }
+                }
+            }
+
+            console.log(isInstanceof(motor, Motor));
+            console.log(isInstanceof(motor, Machine));
+            console.log(motor instanceof Machine);
+
         }    
     </script>
 </body>
