@@ -31,6 +31,7 @@
             background-color: skyblue;
             position: fixed;
             top: 0;
+            transition: width 0.5s;
         }
     </style>
 </head>
@@ -143,30 +144,66 @@
     <div><img src="./images/placeholder.jpg" data-isloaded="" data-src="./images/12.jpg"></div>
     <div><img src="./images/placeholder.jpg" data-isloaded="" data-src="./images/13.jpg"></div>
     <script>
-        window.onload = () => {
-            let imgs = document.querySelectorAll("img");
-            let clientHeight = document.documentElement.clientHeight
-            window.addEventListener("scroll", () => {
-                for (let i = 0, length = imgs.length; i < length; i++) {
-                    let img = imgs[i];
-                    loadImg(img);
-                }
-            })
-            function loadImg(img) {
-                let elBound = img.getBoundingClientRect();
-                let isloaded = img.dataset.isloaded;
-                let isVisible = elBound.top < clientHeight;
-                if (!isloaded && isVisible) {
-                    let src = img.dataset.src;
-                    img.src = src;
-                    img.dataset.isloaded = true;
+        let i=0;
+        let imgs = document.querySelectorAll("img");
+        let clientHeight = document.documentElement.clientHeight
+        // window.addEventListener("scroll", throttle(detect, 500));
+        window.addEventListener("scroll", detect);
+        function loadImg(img) {
+            let elBound = img.getBoundingClientRect();
+            let isloaded = img.dataset.isloaded;
+            let isVisible = elBound.top < clientHeight;
+            if (!isloaded && isVisible) {
+                let src = img.dataset.src;
+                img.src = src;
+                img.dataset.isloaded = true;
+            }
+        }
+
+        let progress = document.querySelector("div#progress");
+        window.addEventListener("scroll", throttle(expand, 500));
+
+        // window.addEventListener("scroll", expand);
+        // function onscroll(){
+        //     requestAnimationFrame(expand);
+        // }
+
+        function expand() {
+            console.log(i++);
+            progress.style.width = `${(document.documentElement.scrollTop + document.documentElement.clientHeight) * 100 / parseInt(getComputedStyle(document.documentElement).height, 10)}%`;
+        }
+
+        function detect() {
+            console.log("detect");
+            for (let i = 0, length = imgs.length; i < length; i++) {
+                let img = imgs[i];
+                loadImg(img);
+            }
+        }
+
+        function debounce(fn, delay) {
+            let timer;
+            return function (...args) {
+                timer = setTimeout(() => {
+                    clearTimeout(timer);
+                    fn.apply(this, args);
+                }, delay)
+            }
+        }
+
+        function throttle(fn, interval) {
+            let timer;
+            let start = new Date();
+            return function (...args) {
+                clearTimeout(timer);
+                let now = new Date();
+                if (now - start >= interval) {
+                    fn.apply(this, args);
+                    start = now;
+                } else {
+                    timer = setTimeout(fn, interval);
                 }
             }
-
-            let progress = document.querySelector("div#progress");
-            window.addEventListener("scroll", () => {
-                progress.style.width = `${(document.documentElement.scrollTop + document.documentElement.clientHeight) * 100 / parseInt(getComputedStyle(document.documentElement).height, 10)}%`;
-            })
         }
 
     </script>

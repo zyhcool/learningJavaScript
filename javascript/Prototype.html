@@ -378,15 +378,32 @@
                 subtype.prototype = prototype;
             }
 
+            // 实现属性继承
             function Motor(name, year) {
                 Machine.call(this, name); // 继承 Machine 的属性
                 this.year = year;
             };
 
-            initPrototype(Motor, Machine);
-            // 等价于：
+            /* 
+            *   实现原型（方法）继承
+            */
+
+            // -------- 写法 1 ------------
+            // initPrototype(Motor, Machine);
+            // -------- 写法 1 ------------
             // Motor.prototype = Object.create(Machine.prototype);
             // Motor.prototype.construtor = Motor;
+            // -------- 写法 3 ------------
+            Motor.prototype = Object.create(Machine.prototype, {
+                constructor: {
+                    value: Motor,
+                    writable: true,
+                    enumerable: false,
+                    configurable: true,
+                }
+            })
+
+
 
             Motor.prototype.sayYear = function () {
                 console.log(this.year);
