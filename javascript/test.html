@@ -20,24 +20,28 @@
     <div id="droptarget" ondragover="dragover(event)"></div>
     <!-- <img width="200px" height="200px" src="https://cdn.youzhiyou.net/prod/logo_2.png" /> -->
     <script>
+        let arr = [2, 4, 6, 7, 4, 2, 6, 8, 6, 3, 2, 6, 7, 90, 74, 3, 2, 67, 8, 9, 2, 5, 8, 53, 4, 1, 5, 7, 9, 0, 6, 3, 24, 6];
+        let arr1 = [...arr];
+        const length = arr1.length;
+        console.log(arr1);
+        console.log(length);
 
-        function Person2() { };
-        console.log(Person2.prototype.constructor);
-        Person2.prototype = {
-            name: "haha",
-            age: 33,
-            job: "developer",
-            sayHi: function () {
-                console.log(this.name + " say hi! ");
+        for (let i = length - 1; i > 0; i--) {
+            for (let j = i - 1; j >= 0; j--) {
+                if (arr1[i] === arr1[j]) {
+                    arr1.splice(i, 1);
+                    break;
+                }
             }
         }
-        function Person1() { };
-        console.log(Person1.prototype.constructor);
-        Person1.prototype.name = "zyh";
-        Person1.prototype.age = 19;
-        Person1.prototype.sayName = function () {
-            console.log("My name is " + this.name);
-        }
+        console.log(arr1);
+
+        let arr2 = [...arr];
+        console.log(arr2)
+        let arrSet = new Set(arr2);
+
+        arr2 = [...arrSet];
+        console.log(arr2)
 
 
     </script>
