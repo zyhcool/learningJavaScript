@@ -19,10 +19,17 @@ let fn = function (start, end, num = 2, even = 10) {
 }
 
 const end = 83;
-
+let arr = [];
 for (let i = 1; i <= end; i++) {
-    console.log(fn(1, end, 2, i));
+    arr.push(fn(1, end, 2, i));
     time = 0;
 }
+let min = arr[0];
+for (let i = 0; i < arr.length; i++) {
+    if (min >= arr[i]) {
+        min = arr[i];
+    }
+}
+console.log(min); // 12
 
 // 83层楼 2颗球 最多需要 12 次投球
