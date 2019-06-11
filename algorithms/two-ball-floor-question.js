@@ -20,16 +20,14 @@ let fn = function (start, end, num = 2, even = 10) {
 
 // 楼层高度
 const end = 83;
-let arr = [];
+
+let min = end;
 for (let i = 1; i <= end; i++) {
-    arr.push(fn(1, end, 2, i));
-    time = 0;
-}
-let min = arr[0];
-for (let i = 0; i < arr.length; i++) {
-    if (min >= arr[i]) {
-        min = arr[i];
+    let a = fn(1, end, 2, i);
+    if (min >= a) {
+        min = a;
     }
+    time = 0;
 }
 console.log(min); // 13
 
