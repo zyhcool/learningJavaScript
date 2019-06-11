@@ -8,7 +8,7 @@ let max = function (a, b) {
 let fn = function (start, end, num = 2, even = 10) {
     time += 1;
     if (num === 1) {
-        return end - start;
+        return 1 + end - start;
     }
     if (end - even * time < even) {
         // 达到最顶端时
@@ -18,6 +18,7 @@ let fn = function (start, end, num = 2, even = 10) {
     }
 }
 
+// 楼层高度
 const end = 83;
 let arr = [];
 for (let i = 1; i <= end; i++) {
