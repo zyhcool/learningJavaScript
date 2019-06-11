@@ -31,6 +31,6 @@ for (let i = 0; i < arr.length; i++) {
         min = arr[i];
     }
 }
-console.log(min); // 12
+console.log(min); // 13
 
-// 83层楼 2颗球 最多需要 12 次投球
+// 83层楼 2颗球 最多需要 13 次投球
