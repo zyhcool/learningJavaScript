@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>scroll-to-bottom</title>
+    <style>
+        body {
+            height: 3000px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script>
+        window.onload = () => {
+            let theElement = document.documentElement;
+
+            //获取滚动条当前的位置 
+            function getScrollTop(element) {
+                let scrollTop = 0;
+                if (element && element.scrollTop) {
+                    scrollTop = element.scrollTop;
+                } else if (document.body) {
+                    scrollTop = document.body.scrollTop;
+                }
+                return scrollTop;
+            }
+
+            //获取当前可视范围的高度 
+            function getClientHeight(element) {
+                let clientHeight = 0;
+                if (document.body.clientHeight && element.clientHeight) {
+                    clientHeight = Math.min(document.body.clientHeight, element.clientHeight);
+                } else {
+                    clientHeight = Math.max(document.body.clientHeight, element.clientHeight);
+                }
+                return clientHeight;
+            }
+
+            //获取文档完整的高度 
+            function getScrollHeight(element) {
+                return Math.max(document.body.scrollHeight, element.scrollHeight);
+            }
+
+            window.onscroll = () => {
+                if (getScrollHeight(theElement) - (getClientHeight(theElement) + getScrollTop(theElement)) === 0) {
+                    alert("加载中。。。");
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

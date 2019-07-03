@@ -7,41 +7,45 @@
     <script src="./test.js"></script>
     <title>test.html</title>
     <style>
-        div {
-            width: 100px;
-            height: 100px;
-            background-color: skyblue;
-            background-image: url("C:/Users/Cool/Desktop/企业微信截图_(大幅度)15586782848763.PNG");
+        .out {
+            height: 400px;
+            width: 100%;
+            overflow-y: scroll;
+        }
+
+        .inner {
+            height: 500px;
+            width: 100%;
         }
     </style>
 </head>
 
 <body>
-    <div id="droptarget" ondragover="dragover(event)"></div>
-    <!-- <img width="200px" height="200px" src="https://cdn.youzhiyou.net/prod/logo_2.png" /> -->
+    <div class="out">
+        <div class="inner"></div>
+        <div class="inner"></div>
+        <div class="inner"></div>
+        <div class="inner"></div>
+        <div class="inner"></div>
+        <div class="inner"></div>
+        <div class="inner"></div>
+        <div class="inner"></div>
+        <div class="inner"></div>
+    </div>
     <script>
-        let arr = [2, 4, 6, 7, 4, 2, 6, 8, 6, 3, 2, 6, 7, 90, 74, 3, 2, 67, 8, 9, 2, 5, 8, 53, 4, 1, 5, 7, 9, 0, 6, 3, 24, 6];
-        let arr1 = [...arr];
-        const length = arr1.length;
-        console.log(arr1);
-        console.log(length);
+        let out = document.querySelector(".out");
 
-        for (let i = length - 1; i > 0; i--) {
-            for (let j = i - 1; j >= 0; j--) {
-                if (arr1[i] === arr1[j]) {
-                    arr1.splice(i, 1);
-                    break;
-                }
+        out.onscroll = () => {
+            let scrollHeight = out.scrollHeight;
+            let clientHeight = out.clientHeight;
+            let scrollTop = out.scrollTop;
+            console.log("scrollHeight: ", scrollHeight);
+            console.log("clientHeight: ", clientHeight);
+            console.log("scrollTop: ", scrollTop);
+            if (scrollHeight - (clientHeight + scrollTop) <= 1) {
+                alert("daole");
             }
         }
-        console.log(arr1);
-
-        let arr2 = [...arr];
-        console.log(arr2)
-        let arrSet = new Set(arr2);
-
-        arr2 = [...arrSet];
-        console.log(arr2)
 
 
     </script>
