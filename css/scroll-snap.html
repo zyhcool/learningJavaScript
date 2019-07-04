@@ -81,12 +81,16 @@
     <script>
         // chrome 支持较差
         // firefox 支持较好
-        function supportCss(style) {
+
+        // 检测浏览器是否支持某个 css 属性
+        function supportCss3(style) {
             let prefix = ["webkit", "Moz", "ms", "o", ""];
             let humpString = [];
             let htmlStyle = document.documentElement.style;
             let _toHumb = function (string) {
                 return string.replace(/-(\w)/g, function ($0, $1) {
+                    console.log($0);
+                    console.log($1);
                     return $1.toUpperCase();
                 });
             };
@@ -97,6 +101,7 @@
                     return _toHumb(style);
                 }
             })
+            console.log(humpString)
 
             return humpString.some((hs) => {
                 return hs in htmlStyle;

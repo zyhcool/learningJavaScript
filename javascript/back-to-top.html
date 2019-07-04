@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>back-to-top</title>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        div {
+            height: 400px;
+        }
+
+        div:nth-child(2n) {
+            background-color: aqua
+        }
+
+        div:nth-child(2n+1) {
+            background-color: yellowgreen;
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <a href="#" rel="" onclick="smoothScroll(0)">返回顶部</a>
+    <script>
+        let smoothScroll = (position) => {
+            if (supportCss("scroll-behavior")) {
+                return;
+            }
+            console.log("scrollSmooth");
+            if (!window.requestAnimationFrame) {
+                window.requestAnimationFrame = (callBack, element) => {
+                    return setTimeout(callBack, 3000);
+                }
+            }
+
+            let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+
+            let step = () => {
+                let distance = position - scrollTop;
+
+                scrollTop = scrollTop + distance / 5;
+                if (Math.abs(distance) < 1) {
+                    window.scrollTo(0, position);
+                } else {
+                    window.scrollTo(0, scrollTop);
+                    requestAnimationFrame(step);
+                }
+            }
+            step();
+        }
+
+        // 检测浏览器是否支持某个 css 属性
+        function supportCss(style) {
+            let prefix = ["webkit", "Moz", "ms", "o", ""];
+            let humpString = [];
+            let htmlStyle = document.documentElement.style;
+            let _toHumb = function (string) {
+                return string.replace(/-(\w)/g, function ($0, $1) {
+                    return $1.toUpperCase();
+                });
+            };
+            humpString = prefix.map((pre) => {
+                if (pre) {
+                    return _toHumb(pre + "-" + style);
+                } else {
+                    return _toHumb(style);
+                }
+            })
+
+            return humpString.some((hs) => {
+                return hs in htmlStyle;
+            })
+        }
+    </script>
+</body>
+
+</html>
