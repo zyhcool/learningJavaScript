@@ -7,45 +7,19 @@
     <script src="./test.js"></script>
     <title>test.html</title>
     <style>
-        .out {
-            height: 400px;
-            width: 100%;
-            overflow-y: scroll;
-        }
-
-        .inner {
-            height: 500px;
-            width: 100%;
+        div {
+            height: 1000px;
+            background: url(./../static/imgs/1.jpg) no-repeat;
+            background-size: contain;
+            background-position: center;
         }
     </style>
 </head>
 
 <body>
-    <div class="out">
-        <div class="inner"></div>
-        <div class="inner"></div>
-        <div class="inner"></div>
-        <div class="inner"></div>
-        <div class="inner"></div>
-        <div class="inner"></div>
-        <div class="inner"></div>
-        <div class="inner"></div>
-        <div class="inner"></div>
+    <div>
     </div>
     <script>
-        let out = document.querySelector(".out");
-
-        out.onscroll = () => {
-            let scrollHeight = out.scrollHeight;
-            let clientHeight = out.clientHeight;
-            let scrollTop = out.scrollTop;
-            console.log("scrollHeight: ", scrollHeight);
-            console.log("clientHeight: ", clientHeight);
-            console.log("scrollTop: ", scrollTop);
-            if (scrollHeight - (clientHeight + scrollTop) <= 1) {
-                alert("daole");
-            }
-        }
 
 
     </script>
