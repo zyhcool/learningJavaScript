@@ -23,14 +23,18 @@
 
 
 
-
+interface ITopic {
+    [topic: string]: Array<{ key: number, fnc: (...args) => any }>
+}
 
 class Publisher {
     constructor() {
         this.topics = {};
     }
+    private topics: ITopic;
+    private static instance: Publisher = new Publisher();
 
-    subscrib(topic, fnc) {
+    subscrib(topic: string, fnc: any) {
         if (!this.topics[topic]) {
             this.topics[topic] = [];
         }
@@ -42,7 +46,7 @@ class Publisher {
         return key;
     }
 
-    unSubscrib(topic, key) {
+    unSubscrib(topic: string, key: number) {
         if (!this.topics[topic]) {
             return;
         }
@@ -59,20 +63,36 @@ class Publisher {
         }
         this.topics[topic].forEach(item => item.fnc())
     }
+
+    static load(obj) {
+        for (let en in this.instance) {
+            obj[en] = this.instance[en]
+        }
+    }
 }
 
-let publisher = new Publisher();
+// let publisher = new Publisher();
 
-let xh = publisher.subscrib("success", () => {
+// let xh = publisher.subscrib("success", () => {
+//     console.log("success");
+// })
+// let xm = publisher.subscrib("error", () => {
+//     console.log("error");
+// })
+// publisher.unSubscrib("success",xm)
+// publisher.publish("success")
+// publisher.publish("error")
+
+// 为其他对象添加 发布-订阅 功能
+let obj:any = {}
+Publisher.load(obj);
+
+let xh = obj.subscrib("success", () => {
     console.log("success");
 })
-
-let xm = publisher.subscrib("error", () => {
+let xm = obj.subscrib("error", () => {
     console.log("error");
 })
-
-
-publisher.unSubscrib("success",xm)
-
-publisher.publish("success")
-publisher.publish("error")
+obj.unSubscrib("success",xm)
+obj.publish("success")
+obj.publish("error")
