@@ -5,11 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "chrome",
+            "type": "node",
             "request": "launch",
             "name": "Chrome",
-            "url": "http://localhost:8080",
-            "webRoot": "${workspaceFolder}"
+            "args": [
+                "${workspaceFolder}/javascript/test.js",
+            ],
         }
     ]
 }
