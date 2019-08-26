@@ -33,5 +33,5 @@ app.use(async (ctx, next) => {
 
 app.use(router.routes()).use(router.allowedMethods());
 
-app.listen(4001, "127.0.0.1");
-console.log("listening port 4001...");
+app.listen(4000);
+console.log("listening port 4000...");
