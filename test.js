@@ -1,10 +1,6 @@
+let url = require("url");
+let querystring = require("querystring");
+let path = "http://localhost:3000/users/897384738?id=15494584&name=zyh&name=90";
+let query = querystring.parse(url.parse(path).query);
 
-
-let a = 0
-let obj = {
-    a:9,
-    s:()=>{
-        console.log(this.a);
-    }
-}
-obj.s();
+console.log(query);

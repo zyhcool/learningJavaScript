@@ -8,6 +8,7 @@ let server = http.createServer((req, res) => {
 
 server.listen(3000, "127.0.0.1");
 
+/// 自定义对 upgrade 事件的处理逻辑，实现建立 WebSocket 连接
 server.on("upgrade", (req, socket, upgradeHead) => {
     console.log(upgradeHead.length);
     const head = Buffer.alloc(upgradeHead.length);
