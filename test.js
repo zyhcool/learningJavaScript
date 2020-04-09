@@ -1,6 +1,13 @@
-let url = require("url");
-let querystring = require("querystring");
-let path = "http://localhost:3000/users/897384738?id=15494584&name=zyh&name=90";
-let query = querystring.parse(url.parse(path).query);
+let EventEmitter = require("events").EventEmitter;
 
-console.log(query);
+class ha extends EventEmitter {
+    constructor() {
+        super();
+    }
+    onerror(err) {
+        console.log("haha", err);
+    }
+}
+
+let h = new ha();
+h.emit("error", new Error("en"), this);
